@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-size: 35px;
 }
 
 .App-logo {
@@ -19,4 +20,8 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.song {
+  border: 2px solid Violet;
 }
