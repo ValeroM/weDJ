@@ -18,7 +18,7 @@ const setup = () => {
     res.status(200).json(songs);
   };
 
-  return [logEndPoint, sendResponse];
+  return [logEndPoint, sendResponse]; // performs the methods we declared
 };
 
 module.exports = setup;
