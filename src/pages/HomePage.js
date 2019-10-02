@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import  { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import '../App.css';
 import logo from '../img/logo.png';
 
@@ -21,7 +21,9 @@ export default class HomePage extends React.Component {
                 <button className="btn btn-success">Guest Login</button>
               </Link>
               <br/>
-              <button className="btn btn-info">About Us</button>
+              <Link to="/about">
+                <button className="btn btn-info">About Us</button>
+              </Link>
               <br/><br/><br/><br/><br/>
           </div>
         );
