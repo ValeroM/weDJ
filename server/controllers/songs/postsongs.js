@@ -7,9 +7,9 @@ const setup = () => {
   };
 
   const updateSongs = (req, res, next) => {
-    console.log("post songs: ", req.body); // the body of the request has the books to post
+    console.log("post songs: ", req.body); // the body of the request has the song to post
     const newSong = req.body;
-    JSON.stringify(newSong);
+    JSON.stringify(newSong); // converting to json so that we can add it
     mockSongsData.push(newSong);
     next();
   };
