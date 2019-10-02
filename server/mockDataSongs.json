@@ -1,0 +1,26 @@
+[
+  {
+    "songID": 0,
+    "songName": "I got a feeling",
+    "songArtist": "Black Eyed Peas",
+    "songAlbum": "The E.N.D.",
+    "likes": 4,
+    "dislikes": 1
+  },
+  {
+    "songID": 1,
+    "songName": "The Middle",
+    "songArtist": "Jimmy Eat World",
+    "songAlbum": "Bleed American",
+    "likes": 10,
+    "dislikes": 2
+  },
+  {
+    "songID": 2,
+    "songName": "HUMBLE",
+    "songArtist": "Kendrcik Lamar",
+    "songAlbum": "Damn",
+    "likes": 5,
+    "dislikes": 0
+  }
+]

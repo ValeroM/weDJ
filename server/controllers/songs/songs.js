@@ -1,10 +1,6 @@
-const setup = () => {
-  mockDataSongs = [
-    { artist: "Black Eyed Peas", songName: "I got a feeling" },
-    { artist: "Jimmy Eat World", songName: "The Middle" },
-    { artist: "Kendrcik Lamar", songName: "HUMBLE" }
-  ];
+const mockSongsData = require("../../mockDataSongs"); // this file will simulate an intity and its properties -- the stuff we will actually use whenever we have a db
 
+const setup = () => {
   const logEndPoint = (req, res, next) => {
     console.log("You have hit the [GET] /songs endpoint");
     next();
@@ -13,7 +9,7 @@ const setup = () => {
   const sendResponse = (req, res, next) => {
     console.log("Sending back some songs now");
     let songs = [];
-    mockDataSongs.forEach(element => {
+    mockSongsData.forEach(element => {
       songs.push(element.songName);
     });
     res.status(200).json(songs);
