@@ -8,6 +8,7 @@ const setup = () => {
 
   router.get("/", controller.songsOnQueue); // calls the actual logic from the controller/songs/songs.js file
   router.post("/", controller.addSongsToQueue);
+  router.post("/likesong/:songId", controller.likeSong);
 
   return router;
 };
