@@ -2,11 +2,11 @@ const mockSongsData = require("../../mockDataSongs"); // this object will simula
 
 const setup = () => {
   const logEndPoint = (req, res, next) => {
-    console.log("You have hit the [POST] /songs/like/:songId endpoint");
+    console.log("You have hit the [POST] /songs/dislike/:songId endpoint");
     next();
   };
 
-  const updateSongLike = (req, res, next) => {
+  const updateSongDislike = (req, res, next) => {
     const songExist = mockSongsData.some((element) => {
       return element.songID == req.body.songID;
     });
@@ -18,8 +18,8 @@ const setup = () => {
             songName: songsInArr.songName,
             songArtist: songsInArr.songArtist,
             songAlbum: songsInArr.songAlbum,
-            likes: songsInArr.likes + 1,
-            dislikes: songsInArr.dislikes
+            likes: songsInArr.likes,
+            dislikes: songsInArr.dislikes + 1
           };
           let currentIndex = mockSongsData.indexOf(songsInArr);
           mockSongsData.splice(currentIndex, 1, newObj); //removing the old object and adding the new one
@@ -35,12 +35,12 @@ const setup = () => {
   const sendResponse = (req, res, next) => {
     console.log(
       "Sending back the following message:\n" +
-        "You've updated the song amount of likes!"
+        "You've updated the song amount of dislikes!"
     );
-    res.status(200).send("You've updated the song amount of likes");
+    res.status(200).send("You've updated the song amount of dislikes");
   };
 
-  return [logEndPoint, updateSongLike, sendResponse]; // performs the methods we declared
+  return [logEndPoint, updateSongDislike, sendResponse]; // performs the methods we declared
 };
 
 module.exports = setup;

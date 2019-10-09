@@ -7,8 +7,9 @@ const setup = () => {
   const router = express.Router();
 
   router.get("/", controller.songsOnQueue); // calls the actual logic from the controller/songs/songs.js file
-  router.post("/", controller.addSongsToQueue);
-  router.post("/likesong/:songId", controller.likeSong);
+  router.post("/", controller.addSongsToQueue); // logic from controller/songs/postsongs.js
+  router.post("/like/:songId", controller.likeSong); // logic from controller/songs/likesong.js
+  router.post("/dislike/:songId", controller.dislikeSong); // logic from controller/songs/dislikesong.js
 
   return router;
 };

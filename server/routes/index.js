@@ -19,7 +19,7 @@ const routes = () => {
   return app;
 };
 
-const attachRoutes = app => {
+const attachRoutes = (app) => {
   app.use("/", routes());
 };
 

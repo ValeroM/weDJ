@@ -9,8 +9,17 @@ const setup = () => {
   const sendResponse = (req, res, next) => {
     console.log("Sending back some songs now");
     let songs = [];
-    mockSongsData.forEach(element => {
+    mockSongsData.forEach((element) => {
       songs.push(element.songName);
+      // console logging for us to make sure its working
+      console.log(
+        "id of song: " +
+          element.songID +
+          " amount of likes: " +
+          element.likes +
+          "amount of dislikes: " +
+          element.dislikes
+      );
     });
     res.status(200).json(songs);
   };
