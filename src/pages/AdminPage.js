@@ -1,11 +1,19 @@
 import React from 'react';
 import '../App.css';
+import SongManage from "../components/SongManage";
+import Player from "../components/Player";
 
 export default class AdminPage extends React.Component{
     render(){
         return(
             <div>
-                <h1>Hi, I'm Admin Page</h1>
+                <div className="text-center">
+                    <h2>Manage Your Party</h2>
+                    <br/>
+                    <Player />
+                    <br/>
+                    <SongManage />
+                </div>
             </div>
         )
     }
