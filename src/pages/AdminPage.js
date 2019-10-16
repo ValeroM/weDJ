@@ -28,11 +28,13 @@ export default class AdminPage extends React.Component{
         
         this.setState({
             videoList: response.items
-        })
+        });
     }
 
     selectHandler = (video) => {
-        this.setState({playingVideo: video})
+        this.setState({
+            playingVideo: video
+        });
     }
 
     render(){
