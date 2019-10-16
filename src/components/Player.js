@@ -1,12 +1,26 @@
 import React from 'react';
 
-export default class Player extends React.Component{
-
-    render(){
-        return(
-        <div>
-            <h1 className="text-center">Player Block / QR Code Section</h1>
-        </div>
+const Player = ( {video} ) => {
+    
+    if( !video ) {
+        return( 
+            <div>No Current Playing</div> 
         );
     }
+
+    const videoSrc = `https://www.youtube.com/embed/${video.id.videoId}`;
+
+    return (
+        <div>
+            <div>
+                <iframe src={videoSrc} allowFullScreen title='Video player'/>
+            </div>
+            <div>
+                <p>{video.snippet.title}</p>
+            </div>
+        </div>
+
+    )
 }
+
+export default Player;

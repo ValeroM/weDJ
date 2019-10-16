@@ -43,7 +43,7 @@ export default class AdminPage extends React.Component{
                     <div>
                     <div>
                         <div>
-                            <Player/>
+                            <Player video={this.state.playingVideo}/>
                         </div>
                         <div>
                             <VideoList selectHandler={this.selectHandler} videos={this.state.videoList}/>
