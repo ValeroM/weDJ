@@ -1,15 +1,33 @@
 import React from 'react';
 
-class SearchBar extends React.Component {
+class Searchbar extends React.Component {
+    state = {
+        term: ''
+    };
 
-    render(){
-        return(
-            <div className="text-center">
-                <input type="text" style={{width:"25%", height:"35px"}} placeholder="Search..."/>
-                <br/>
+    inputHandler = (event) => {
+        this.setState({
+            term: event.target.value
+        });
+    };
+
+    submitHandler = (event) => {
+        event.preventDefault();
+        this.props.submitBack(this.state.term);
+    }
+
+    render() {
+        return (
+            <div className='text-center'>
+                <form onSubmit={this.submitHandler}>
+                    <div>
+                        <label htmlFor="searchVideo">Video Search</label>
+                        <input onChange={this.inputHandler} name='searchVideo' type="text" value={this.state.term}
+                            placeholder='Search...'/>
+                    </div>
+                </form>
             </div>
         )
     }
 }
-
-export default SearchBar;
+export default Searchbar;
