@@ -1,3 +1,22 @@
+const db = require("../../database/models");
+const { Song } = db;
+
+const setup = () => {
+  const logEndPoint = (req, res, next) => {
+    console.log("You have hit the [GET] /songs endpoint");
+    next();
+  };
+
+  const sendSongs = (req, res, next) => {
+    Song.findAll().then((songs) => res.status(200).json(songs));
+  };
+
+  return [logEndPoint, sendSongs]; // performs the methods we declared
+};
+
+module.exports = setup;
+
+/*
 const mockSongsData = require("../../mockDataSongs"); // this file will simulate an intity and its properties -- the stuff we will actually use whenever we have a db
 
 const setup = () => {
@@ -28,3 +47,4 @@ const setup = () => {
 };
 
 module.exports = setup;
+*/
