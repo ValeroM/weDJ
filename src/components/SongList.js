@@ -43,6 +43,7 @@ class SongList extends React.Component {
       this.setState({
         songList : newlist
       })
+
     }
     
     dislikeHandler = (song) => {

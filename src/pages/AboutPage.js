@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class AboutPage extends React.Component {
     render() {
@@ -16,7 +16,7 @@ export default class AboutPage extends React.Component {
                         it gets to the front of the queue. </p>
                 <h1 className="text-center">About This Project</h1>
                     <p>This is a web design project under the instruction of 
-                        <a href="https://cunytechprep.nyc/" target="_blank"> Cuny Tech Prep</a></p>
+                        <a href="https://cunytechprep.nyc/" target="_blank" rel="noopener noreferrer"> Cuny Tech Prep</a></p>
                 <h1 className="text-center">About Us</h1>
                     <div className="text-center">
                         <p>Team Members: </p>
