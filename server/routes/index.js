@@ -20,7 +20,7 @@ const routes = () => {
 };
 
 const attachRoutes = (app) => {
-  app.use("/", routes());
+  app.use("/api", routes());
 };
 
 module.exports = attachRoutes;
