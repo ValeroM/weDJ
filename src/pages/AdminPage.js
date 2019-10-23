@@ -23,7 +23,7 @@ export default class AdminPage extends React.Component{
             q: keyword,
             part:'snippet',
             type:'video',
-            maxResults: 3,
+            maxResults: 10,
           });
         
         this.setState({
@@ -32,27 +32,27 @@ export default class AdminPage extends React.Component{
     }
 
     selectHandler = (video) => {
-        this.setState({
-            playingVideo: video
-        });
+        if( window.confirm("Are you sure to choose this track?") ){
+            this.setState({
+                playingVideo: video
+            });
+        }
     }
 
     render(){
         return(
             <div>
-                <div className="text-center">
-                    <SearchBar submitBack={this.searchHandler} />
-                    <div>
-                    <div>
-                        <div>
+                <div>
+                    <div className="text-center">
+                        <SearchBar submitBack={this.searchHandler} />
+                    </div>
+                        <div className="text-center">
                             <Player video={this.state.playingVideo}/>
                         </div>
                         <div>
                             <VideoList selectHandler={this.selectHandler} videos={this.state.videoList}/>
                         </div>
-                    </div>
-                </div>
-                    <h2>Manage Your Party</h2>
+                    <h2 className="text-center">Manage Your Party</h2>
                     <br/>
                     <SongManage />
                 </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../style/videos.css';
 
 const Player = ( {video} ) => {
     
@@ -11,13 +12,11 @@ const Player = ( {video} ) => {
     const videoSrc = `https://www.youtube.com/embed/${video.id.videoId}`;
 
     return (
-        <div>
+        <div className="player-section">
             <div>
                 <iframe src={videoSrc} allowFullScreen title='Video player'/>
             </div>
-            <div>
-                <p>{video.snippet.title}</p>
-            </div>
+            <p>{video.snippet.title}</p>
         </div>
 
     )

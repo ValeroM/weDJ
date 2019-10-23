@@ -12,7 +12,8 @@ const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 export default class AdminPage extends React.Component{
     state = {
         videoList: [],
-        selectedVideo: null
+        selectedVideo: null,
+        selected: false
     }
 
     searchHandler = async (termFromSearchBar) => {
@@ -25,14 +26,29 @@ export default class AdminPage extends React.Component{
           });
         
         this.setState({
-            videoList: response.items
+            videoList: response.items,
+            selected: false
         });
     }
 
     selectHandler = (video) =>{
-        this.setState({
-            selectedVideo: video
-        });
+
+        if( window.confirm("Are you sure to choose this track?") ){
+            /*************************************** */
+            //Store the following three data to DB and remount the component to render it into song list
+            //video ID
+            console.log(video.id.videoId);
+            //video title
+            console.log(video.snippet.title);
+            //video img smallest
+            let url = video.snippet.thumbnails.default.url;
+
+            this.setState({
+                selected: true,
+                videoList: [],
+                selectedVideo: video
+            });
+        }
     }
 
     render(){
@@ -41,12 +57,16 @@ export default class AdminPage extends React.Component{
                 <h1>Welcome to the Party!</h1>
                 <SearchBar submitBack={this.searchHandler} />
                 <div>
-                    <div>
-                        <Player video={this.state.selectedVideo}/>
-                    </div>
-                    <div>
+                    {!this.state.selected && (
+                        <div>
                         <VideoList selectHandler={this.selectHandler} videos={this.state.videoList}/>
                     </div>
+                    )}
+                    {this.state.selected && (
+                        <div>
+                            <h3>Track submitted!</h3>
+                        </div>
+                    )}
                 </div>
                 <SongList />
             </div>
