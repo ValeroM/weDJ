@@ -9,22 +9,22 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       }
     */
-    songName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    songArtist: {
+    artist: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    songAlbum: {
+    album: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    songLikes: {
+    likes: {
       type: DataTypes.INTEGER
     },
-    songDislikes: {
+    dislikes: {
       type: DataTypes.INTEGER
     }
   });

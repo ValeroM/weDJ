@@ -10,7 +10,7 @@ const routes = () => {
 
   // if the front end hits the "/" endpoint, it will run the call back function below
   app.use("/", (req, res, next) => {
-    console.log("You have hit [GET] / endpoint");
+    console.log("You have hit [GET] /api endpoint");
     let responseMessage = "Welcome to weDJ API";
     console.log("Sending back the following message:\n" + responseMessage);
     return res.status(200).send(responseMessage);

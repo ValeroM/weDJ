@@ -3,18 +3,18 @@ const { Song } = db;
 
 const setup = () => {
   const logEndPoint = (req, res, next) => {
-    console.log("You have hit the [POST] /songs/dislike/:songId endpoint");
+    console.log("You have hit the [POST] api/songs/:id/dislike endpoint");
     next();
   };
 
   const updateSongDislike = (req, res) => {
-    const songid = req.body.songid;
-    Song.findByPk(songid).then((song) => {
+    const { id } = req.params;
+    Song.findByPk(id).then((song) => {
       if (!song) {
         return res.sendStatus(400);
       }
       song
-        .increment("songDislikes", { by: 1 })
+        .increment("dislikes", { by: 1 })
         .then((updatedSong) => {
           // either I send back the updated song as json or the .send message. It can't be both.
           res.status(200).json(updatedSong);
