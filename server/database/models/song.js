@@ -1,4 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => 
+{
   const Song = sequelize.define("song", {
     /*
     As per some stack overflow posts, it looks like the id is provided by sequelize but I am not sure
@@ -9,24 +10,23 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       }
     */
+
+    // Remove artist and album attributes
     name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    artist: {
+
+    url: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    album: {
-      type: DataTypes.STRING,
+
+    rating: {
+      // Downvote: -1 Upvote: +1
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    likes: {
-      type: DataTypes.INTEGER
-    },
-    dislikes: {
-      type: DataTypes.INTEGER
-    }
   });
   return Song;
 };

@@ -6,19 +6,22 @@ const db = require("./database/models");
 
 app.use(bodyParser.json()); //  basically tells the system that we want json to be used.
 
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 7001; // Uses 7000 as port
 
-attachRoutes(app);
+attachRoutes(app); // ignore
 
 /*
 creates tables assuming they dont exist. -- should be false by default, though.
 db.sequelize.sync({ force: false });
 
-If you already have all the tables, it will not do anything. However if you use force: true, it will drop the table that exists and recreate them from the model definition.
+If you already have all the tables, it will not do anything. 
+However if you use force: true, it will drop the table that exists and recreate them from the model definition.
 In other words, update DB tables based on model updates. Does not handle renaming tables/columns
+
 NOTE: toggling this to true drops all tables (including data)
 */
 
+// Creates table if it doesn't exist
 db.sequelize
   .sync()
   .then(() => console.log("Database connected. Tables Synced!"))
