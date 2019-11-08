@@ -1,5 +1,4 @@
-function setup() 
-{
+function setup() {
   return {
     // "()" is needed because we are calling a function
     songsOnQueue: require("./songs")(),

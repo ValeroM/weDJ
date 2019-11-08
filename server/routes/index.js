@@ -1,7 +1,6 @@
 const express = require("express");
 
-const routes = () => 
-{
+const routes = () => {
   const app = express();
 
   // if the front end hits the "/songs" endpoint, it will render the get-songs.js file
@@ -12,11 +11,9 @@ const routes = () =>
   // if the front end hits the "/" endpoint, it will run the call back function below
   app.use("/", (req, res, next) => {
     console.log("You have hit [GET] /api endpoint");
-    
-    // Show message, if user successfuly connects to site
     let responseMessage = "Welcome to weDJ API";
     console.log("Sending back the following message:\n" + responseMessage);
-    
+
     // Return message
     return res.status(200).send(responseMessage);
   });
@@ -24,8 +21,7 @@ const routes = () =>
   return app;
 };
 
-const attachRoutes = (app) => 
-{
+const attachRoutes = (app) => {
   app.use("/api", routes());
 };
 
