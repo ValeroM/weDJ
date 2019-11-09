@@ -23,7 +23,7 @@ NOTE: toggling this to true drops all tables (including data)
 
 // Creates table if it doesn't exist
 db.sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => console.log("Database connected. Tables Synced!"))
   .catch((err) => console.error("Error. Syncing did not occur because: ", err));
 
