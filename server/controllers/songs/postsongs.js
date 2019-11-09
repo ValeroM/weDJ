@@ -9,13 +9,12 @@ const setup = () => {
 
   // Add song
   const addSong = (req, res) => {
-    // Expects a parameter of song's name
+    // expects name, artist and url
     const new_song = req.body;
-
-    // From the database, create a new element with new_song
+    // using sequelize, we create a new record for our table "songs" with new_song
     Song.create(new_song)
       .then((song) => {
-        res.status(200).json(song); // After adding song, send OK message
+        res.status(200).json(song); // After adding song, send OK message and return the song
       })
       .catch((err) => {
         res.status(400).json(err); // If cannot add song, send ERROR message
