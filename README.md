@@ -42,7 +42,19 @@ Open up a new terminal and do the following steps:
 
 `git clone https://github.com/ValeroM/weDJ.git`
 
-`cd weDJ/server`
+`cd weDJ/server/client`
+
+`npm install`
+
+> This command makes sure the _client_ is ready to go
+
+`cd ..`
+
+> Back out to server
+
+`npm install`
+
+> This command makes sure the _server_ is ready to go
 
 `npm run dev`
 
