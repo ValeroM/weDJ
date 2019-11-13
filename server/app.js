@@ -23,7 +23,8 @@ NOTE: toggling this to true drops all tables (including data)
 
 // Creates table if it doesn't exist
 db.sequelize
-  .sync()
+  .sync({ force: true }) // THE DB IN UR LOCAL MACHINE HAS THE OLD TABLES. USE THIS TO DROP THEM AND RECREATE THEM
+  // THEN CHANGE IT TO: .sync() so that u stop dropping the tables all the time 
   .then(() => console.log("Database connected. Tables Synced!"))
   .catch((err) => console.error("Error. Syncing did not occur because: ", err));
 

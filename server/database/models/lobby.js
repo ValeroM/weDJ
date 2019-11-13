@@ -3,9 +3,17 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    lobby_code: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: 'Lobby code is already in use!'
+      }
     }
   });
-  Lobby.associate = function(models) {
+  Lobby.associate = function (models) {
     models.Lobby.belongsToMany(models.Song, { through: models.Queue });
   };
   return Lobby;
