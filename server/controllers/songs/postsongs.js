@@ -7,11 +7,9 @@ const setup = () => {
     next();
   };
 
-  // Add song
-  const addSong = (req, res) => {
-    // expects name, artist and url
-    const new_song = req.body;
-    // using sequelize, we create a new record for our table "songs" with new_song
+  // Add song code
+  const addSongCode = (req, res) => {
+    const new_song = req.body; // only expects the code for the song. The one YT api gives us
     Song.create(new_song)
       .then((song) => {
         res.status(200).json(song); // After adding song, send OK message and return the song
@@ -21,7 +19,7 @@ const setup = () => {
       });
   };
 
-  return [logEndPoint, addSong]; // performs the methods we declared
+  return [logEndPoint, addSongCode]; // performs the methods we declared
 };
 
 module.exports = setup;
