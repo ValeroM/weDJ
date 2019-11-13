@@ -5,25 +5,25 @@ import AdminPage from "./pages/AdminPage";
 import GuestPage from "./pages/GuestPage";
 import AboutPage from "./pages/AboutPage";
 
-export default function App() {
-  return (
-    <Router>
-      <div>
-        <Switch>
-          <Route path="/guest/:id">
-            <GuestPage />
-          </Route>
-          <Route path="/admin/:id">
-            <AdminPage />
-          </Route>
-          <Route path="/about">
-            <AboutPage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
+class App extends React.Component {
+  render(){
+    return (
+      <Router>
+        <div>
+          <Switch>
+            <Route path="/guest/:id" component={GuestPage} />
+            <Route path="/admin/:id" component={AdminPage} />
+            <Route path="/about">
+              <AboutPage />
+            </Route>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
+
+export default App;

@@ -12,7 +12,14 @@ const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 export default class AdminPage extends React.Component{
     state = {
         videoList: [],
-        playingVideo: null
+        playingVideo: null,
+        lobbyid:''
+    }
+
+    componentDidMount = () => {
+        this.setState({
+            lobbyid : this.props.match.params.id
+        })
     }
 
     searchHandler = async ( keyword ) => {
@@ -41,6 +48,11 @@ export default class AdminPage extends React.Component{
         return(
             <div>
                 <div>
+                    <div className="text-center">
+                        <h2>Welcome to Your Party</h2>
+                        <h4>Your Party Code is: {this.state.lobbyid}</h4>
+                    </div>
+                    
                     <div className="text-center">
                         <SearchBar submitBack={this.searchHandler} />
                     </div>

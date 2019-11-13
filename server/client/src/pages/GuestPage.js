@@ -16,6 +16,21 @@ export default class AdminPage extends React.Component{
         selected: false
     }
 
+    componentDidMount = async () => {
+        
+        const response = await fetch('http://localhost:7001/api/songs'
+        )
+            .then(response => 
+                response.json()
+            )
+            .then(data => 
+                /*this.setState({
+                    data
+                })*/
+                console.log(data)
+            );
+    }
+
     searchHandler = async (termFromSearchBar) => {
         
         const response = await searchYoutube( KEY, {
@@ -44,14 +59,12 @@ export default class AdminPage extends React.Component{
             //video img smallest
             let url = video.snippet.thumbnails.default.url;
 
-            /*const response = await fetch('http://localhost:7001/api/songs', {
+            await fetch('http://localhost:7001/api/songs', {
                 method: 'POST',
                 body: JSON.stringify({
-                    name: video.snippet.title,
-                    artist: 'unkown',
-                    url: video.id.videoId
+                    song_code: video.id.videoId
                 })
-            })*/
+            })
 
             this.setState({
                 selected: true,
