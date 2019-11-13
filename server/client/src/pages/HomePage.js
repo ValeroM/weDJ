@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import '../App.css';
 import logo from '../img/logo.png';
+import LobbyInput from '../components/LobbyInput';
 
 export default class HomePage extends React.Component {
     render(){
@@ -13,8 +14,10 @@ export default class HomePage extends React.Component {
               <h1 className="App-header">Rock your party your way!</h1>
               <br/>
               <br/>
+              <LobbyInput />
+              <br/>
               <Link to="/admin">
-                <button className="btn btn-danger">Party Up</button>
+                <button className="btn btn-danger">Create Your Party</button>
               </Link>
               <br/>
               <Link to="/guest">
