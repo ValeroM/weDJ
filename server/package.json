@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "concurrently": "^5.0.0",
+    "crypto-random-string": "^3.0.1",
     "express": "^4.17.1",
     "install": "^0.13.0",
     "npm": "^6.11.3",
