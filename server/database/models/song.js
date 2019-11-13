@@ -1,19 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
   const Song = sequelize.define("song", {
-    name: {
+    song_code: {
       type: DataTypes.STRING,
-      allowNull: false
-    },
-    artist: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: 'Song code is already in use!'
+      }
     }
   });
-  Song.associate = function(models) {
+  Song.associate = function (models) {
     models.Song.belongsToMany(models.Lobby, { through: models.Queue });
   };
   return Song;
