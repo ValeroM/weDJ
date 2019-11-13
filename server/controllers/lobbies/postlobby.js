@@ -1,19 +1,26 @@
 const db = require("../../database/models");
-const cryptoRandomString = require('crypto-random-string');
 const { Lobby } = db;
+
+function createCode(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 const setup = () => {
   const logEndPoint = (req, res, next) => {
-    console.log("You have hit the [POST] api/lobbies/:name endpoint");
+    console.log("You have hit the [POST] api/lobbies endpoint");
     next();
   };
 
-  const codeForLobby = cryptoRandomString({ length: 6, type: 'base64' });
-
   const addLobby = (req, res) => {
     const new_lobby = {
-      name: req.params.name, // get the name from the params sent by the frontend
-      lobby_code: codeForLobby
+      name: req.body.name, // get the name from the params sent by the frontend
+      lobby_code: createCode(6)
     }
     // using sequelize, we create a new record for our table "lobbies" with new_lobby
     Lobby.create(new_lobby)

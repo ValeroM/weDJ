@@ -5,7 +5,8 @@ const setup = () => {
   const controller = lobbies(); // imports the controllers (i.e, whatever logic we want to perform)
   const router = express.Router();
 
-  router.post("/:name", controller.addNewLobby);
+  router.get("/", controller.lobbieslist);
+  router.post("/", controller.addNewLobby);
 
   return router;
 };
