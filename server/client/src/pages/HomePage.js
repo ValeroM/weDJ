@@ -1,10 +1,30 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import '../App.css';
 import logo from '../img/logo.png';
 import LobbyInput from '../components/LobbyInput';
+import CreateForm from '../components/CreateForm';
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
+
+    state = {
+      showCreate: false
+    }
+
+    clickHandler = () => {
+      this.setState({
+        showCreate: !this.state.showCreate
+      })
+    }
+
+    adminredirect = (id) => {
+      this.props.history.push(`/admin/${id}`);
+    }
+
+    guestredirect = (id) => {
+      this.props.history.push(`/guest/${id}`);
+    }
+
     render(){
         return (
           <div className="App App-bg">
@@ -15,10 +35,8 @@ export default class HomePage extends React.Component {
               <br/>
               <br/>
               <LobbyInput />
-              <br/>
-              <Link to="/admin">
-                <button className="btn btn-danger">Create Your Party</button>
-              </Link>
+              {!this.state.showCreate && (<button className="btn btn-danger" onClick={this.clickHandler}>Create Your Party</button>)}
+              {this.state.showCreate && (<CreateForm hideButton={this.clickHandler} redirect={this.adminredirect}/>)}
               <br/>
               <Link to="/guest">
                 <button className="btn btn-success">Guest Login</button>
@@ -32,3 +50,5 @@ export default class HomePage extends React.Component {
         );
       }
 }
+
+export default withRouter(HomePage);

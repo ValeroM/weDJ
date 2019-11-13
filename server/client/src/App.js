@@ -10,10 +10,10 @@ export default function App() {
     <Router>
       <div>
         <Switch>
-          <Route path="/guest">
+          <Route path="/guest/:id">
             <GuestPage />
           </Route>
-          <Route path="/admin">
+          <Route path="/admin/:id">
             <AdminPage />
           </Route>
           <Route path="/about">

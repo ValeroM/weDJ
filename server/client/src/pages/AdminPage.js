@@ -15,8 +15,6 @@ export default class AdminPage extends React.Component{
         playingVideo: null
     }
 
-
-
     searchHandler = async ( keyword ) => {
 
         const response = await searchYoutube( KEY, {
