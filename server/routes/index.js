@@ -14,7 +14,6 @@ const routes = () => {
     console.log("You have hit [GET] /api endpoint");
     let responseMessage = "Welcome to weDJ API";
     console.log("Sending back the following message:\n" + responseMessage);
-
     // Return message
     return res.status(200).send(responseMessage);
   });

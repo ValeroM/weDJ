@@ -6,9 +6,30 @@ const db = require("./database/models");
 
 app.use(bodyParser.json()); //  basically tells the system that we want json to be used.
 
-const port = process.env.PORT || 7001; // Uses 7000 as port
+const port = process.env.PORT || 7001; // Uses 7001 as port
 
-attachRoutes(app); // ignore
+/* 
+Stack overflow posts that seemed to helped with the code below: 
+https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
+https://enable-cors.org/server_expressjs.html
+https://stackoverflow.com/questions/5027705/error-content-type-is-not-allowed-by-access-control-allow-headers
+*/
+// Add headers
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  // Request methods you wish to allow
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  // Request headers you wish to allow
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.header('Access-Control-Allow-Credentials', true);
+  // Pass to next layer of middleware
+  next();
+});
+
+attachRoutes(app); // attaches routes
 
 /*
 creates tables assuming they dont exist. -- should be false by default, though.
