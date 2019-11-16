@@ -12,8 +12,6 @@ class CreateForm extends React.Component {
     
         this.props.hideButton.bind(this)
         this.props.redirect.bind(this)
-
-        this.randstr = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
 
     handleChange = (event) => {
@@ -23,11 +21,25 @@ class CreateForm extends React.Component {
             });
     }
 
-    handleSubmit = (event) => {
-        alert('A name was submitted: ' + this.state.value);
+    handleSubmit = async (event) => {
+        alert('Your party is created! Enjoy!');
         this.props.hideButton();
-        this.props.redirect(this.randstr)
         event.preventDefault();
+        
+        let name = this.state.value;
+
+        /*const res = await fetch('http://localhost:7001/api/lobbies', {
+                mode: 'no-cors',
+                method: 'POST',
+                body: JSON.stringify({
+                    name: name
+                })
+            }).then( response=>
+                response.json()).then( data => 
+                    console.log(data));*/
+        const response = await fetch('http://localhost:7001/api/lobbies');
+        const myJson = await response.json();
+        console.log(JSON.stringify(myJson));
     }
 
     render(){
