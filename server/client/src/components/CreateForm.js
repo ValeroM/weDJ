@@ -7,8 +7,7 @@ class CreateForm extends React.Component {
         super(props);
 
         this.state = {
-            value: '',
-            partycode: ''
+            value: ''
         }
     
         this.props.hideButton.bind(this)
@@ -23,6 +22,8 @@ class CreateForm extends React.Component {
     }
 
     handleSubmit = async (event) => {
+
+        event.preventDefault();
         
         const name = this.state.value;
 
