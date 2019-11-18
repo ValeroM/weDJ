@@ -29,6 +29,19 @@
   padding: 0.5rem;
 }
 
+.Home-submit {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: orangered;
+  background-color:rgba(245,245,245,0.3);
+  display: inline;
+}
+
 .App-link {
   color: #09d3ac;
 }

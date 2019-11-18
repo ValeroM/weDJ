@@ -16,6 +16,21 @@ export default class AdminPage extends React.Component{
         selected: false
     }
 
+    componentDidMount = async () => {
+        
+        const response = await fetch('http://localhost:7001/api/songs'
+        )
+            .then(response => 
+                response.json()
+            )
+            .then(data => 
+                /*this.setState({
+                    data
+                })*/
+                console.log(data)
+            );
+    }
+
     searchHandler = async (termFromSearchBar) => {
         
         const response = await searchYoutube( KEY, {
@@ -23,7 +38,8 @@ export default class AdminPage extends React.Component{
             part:'snippet',
             type:'video',
             maxResults: 5,
-          });
+            videoCategoryId: 10,
+          }); 
         
         this.setState({
             videoList: response.items,
@@ -31,17 +47,24 @@ export default class AdminPage extends React.Component{
         });
     }
 
-    selectHandler = (video) =>{
+    selectHandler = async (video) =>{
 
         if( window.confirm("Are you sure to choose this track?") ){
             /*************************************** */
             //Store the following three data to DB and remount the component to render it into song list
             //video ID
-            console.log(video.id.videoId);
+            console.log(video);
             //video title
             console.log(video.snippet.title);
             //video img smallest
             let url = video.snippet.thumbnails.default.url;
+
+            await fetch('http://localhost:7001/api/songs', {
+                method: 'POST',
+                body: JSON.stringify({
+                    song_code: video.id.videoId
+                })
+            })
 
             this.setState({
                 selected: true,
