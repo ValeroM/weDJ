@@ -7,7 +7,8 @@ class CreateForm extends React.Component {
         super(props);
 
         this.state = {
-            value: ''
+            value: '',
+            partycode: ''
         }
     
         this.props.hideButton.bind(this)
@@ -22,24 +23,28 @@ class CreateForm extends React.Component {
     }
 
     handleSubmit = async (event) => {
-        alert('Your party is created! Enjoy!');
-        this.props.hideButton();
-        event.preventDefault();
         
-        let name = this.state.value;
+        const name = this.state.value;
 
-        /*const res = await fetch('http://localhost:7001/api/lobbies', {
-                mode: 'no-cors',
+        const res = await fetch('http://localhost:7001/api/lobbies', {
                 method: 'POST',
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    name: name
+                    "name": name
                 })
-            }).then( response=>
-                response.json()).then( data => 
-                    console.log(data));*/
-        const response = await fetch('http://localhost:7001/api/lobbies');
-        const myJson = await response.json();
-        console.log(JSON.stringify(myJson));
+            })
+            .then( response=>
+                response.json()
+                )
+                .then( data =>{
+                        alert('Your party is created! Enjoy!');
+                        this.props.hideButton();
+                        this.props.redirect(data.lobby_code);}
+                    )
+                    .catch( err =>{
+                        alert('Fail to create your party this may due to invaild party name, please try again!')
+                    });
+
     }
 
     render(){

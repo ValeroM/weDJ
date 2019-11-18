@@ -25,20 +25,6 @@ class HomePage extends React.Component {
       this.props.history.push(`/guest/${id}`);
     }
 
-    test = async() => {
-      const response = await fetch('http://localhost:7001/api/songs'
-        )
-            .then(response => 
-                response.json()
-            )
-            .then(data => 
-                /*this.setState({
-                    data
-                })*/
-                console.log(data)
-            );
-    }
-
     render(){
         return (
           <div className="App App-bg">
@@ -60,7 +46,6 @@ class HomePage extends React.Component {
                 <button className="btn btn-info">About Us</button>
               </Link>
               <br/>
-              <button onClick={this.test}>Test-BackEnd</button>
               <br/><br/><br/>
           </div>
         );
