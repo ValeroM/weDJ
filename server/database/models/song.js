@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       unique: {
         args: true,
         msg: 'Song code is already in use!'
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     }
   });
