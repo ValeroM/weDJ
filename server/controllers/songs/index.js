@@ -1,8 +1,9 @@
 function setup() {
   return {
     // "()" is needed because we are calling a function
-    songsOnQueue: require("./songs")(),
-    addSongsToQueue: require("./postsongs")()
+    songsOnTableSongs: require("./songs")(),
+    addSongsToTableSongs: require("./postsongs")(),
+    addSongsToQueue: require("./posttoqueue")()
   };
 }
 
