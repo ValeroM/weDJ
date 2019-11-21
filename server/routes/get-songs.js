@@ -8,6 +8,7 @@ const setup = () => {
 
   router.get("/", controller.songsOnQueue); // calls the actual logic from the controller/songs/songs.js file
   router.post("/", controller.addSongsToQueue); // logic from controller/songs/postsongs.js
+  router.post("/rate", controller.addSongRating); // Update song's rating
 
   return router;
 };

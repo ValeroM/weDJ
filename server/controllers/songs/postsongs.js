@@ -10,6 +10,12 @@ const setup = () => {
   // Add song code
   const addSongCode = (req, res) => {
     const new_song = req.body; // only expects the code for the song. The one YT api gives us
+
+    /* OBJECTIVE:
+    Add function that checks if new_song's URL is already in database
+    If so, prevent song from being added
+    */
+
     Song.create(new_song)
       .then((song) => {
         res.status(200).json(song); // After adding song, send OK message and return the song
