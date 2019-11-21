@@ -9,7 +9,7 @@ const setup = () => {
 
   // Add song code
   const addSongCode = (req, res) => {
-    const new_song = req.body; // only expects the code for the song. The one YT api gives us
+    const new_song = req.body; // only expects the code for the song (The one YT api gives us) and the name of the song. 
     Song.create(new_song)
       .then((song) => {
         res.status(200).json(song); // After adding song, send OK message and return the song
