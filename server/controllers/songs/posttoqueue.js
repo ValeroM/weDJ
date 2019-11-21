@@ -26,20 +26,20 @@ const setup = () => {
           }
           Song.create(new_song)
             .then((songJustAdded) => {
-              compositeKeyObj.songId = songJustAdded.get('id'); // After adding song, add it to queue table. 
-              next();
+              compositeKeyObj.songId = songJustAdded.get('id'); // After adding song, get pk that sequelize just created 
+              next(); // go to next method 
             })
             .catch((err) => {
               res.status(400).json(err); // If cannot add song, send ERROR message
             });
         }
-        compositeKeyObj.songId = song.get('id');
-        next();
+        compositeKeyObj.songId = song.get('id'); // if already exist is our songs table, just get the pk
+        next(); // go to next method 
       });
   };
 
   const getLobbyId = (req, res, next) => {
-    const { lobby_code } = req.body
+    const { lobby_code } = req.body // get lobby code from the request body
     Lobby.findOne({
       where: { lobby_code: lobby_code }
     })
@@ -47,14 +47,14 @@ const setup = () => {
         if (!lobby) { // if lobby not found, then we received wrong code from frontend. 
           return res.sendStatus(404);
         }
-        compositeKeyObj.lobbyId = lobby.get('id');
-        next();
+        compositeKeyObj.lobbyId = lobby.get('id'); // if row found in lobby table, get the pk
+        next(); // go to next method
       });
   };
 
   const addSongToQueueTableUsingCompositeKey = (req, res, next) => {
-    const songEntryToQueue = {
-      rate: 0,
+    const songEntryToQueue = { // the new record we are going to enter to queue table
+      rate: 0, // rate 0 because it was just added 
       lobbyId: compositeKeyObj.lobbyId,
       songId: compositeKeyObj.songId
     }
