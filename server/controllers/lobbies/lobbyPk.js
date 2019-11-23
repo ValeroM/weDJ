@@ -22,7 +22,7 @@ const setup = () => {
         // Look for code in table
         Lobby
             .findByPk(lobby_code)
-            .then(isLobbyFound = true)//lobby_id_found = lobby_code)
+            .then(isLobbyFound = true)
             .catch(res.status(404));
 
         if (isLobbyFound)
@@ -33,8 +33,6 @@ const setup = () => {
             // Send back response
             res.status(200);
         }
-        // is this needed?
-        // Lobby.findAll().then((lobbies) => res.status(200).json(lobbies));
     };
 
     return [logEndPoint, getLobbyPk, getLobbiesFromDb]; // performs the methods we declared

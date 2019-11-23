@@ -3,7 +3,7 @@ function setup() {
     // "()" is needed because we are calling a function
     addNewLobby: require("./postlobby")(),
     lobbieslist: require("./getlobbies")(),
-    getLobbyPk: require("./lobbyPk")
+    getLobbyPk: require("./lobbyPk")()
   };
 }
 
