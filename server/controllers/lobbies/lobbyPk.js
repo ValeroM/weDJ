@@ -16,17 +16,28 @@ const setup = () => {
         // Parse JSON body
         const lobby_code = req.body.lobby_code;
 
+        // Create boolean variable for later
+        isLobbyFound = false;
+
         // Look for code in table
         Lobby
             .findByPk(lobby_code)
-            .then(lobby_id_found = lobby_code)
-            .catch(console.log("Song not found"));
+            .then(isLobbyFound = true)//lobby_id_found = lobby_code)
+            .catch(res.status(404));
 
+        if (isLobbyFound)
+        {
+            // Set pase JSON body as value to lobby_id_value
+            lobby_id_found = lobby_code;
+
+            // Send back response
+            res.status(200);
+        }
         // is this needed?
         // Lobby.findAll().then((lobbies) => res.status(200).json(lobbies));
     };
 
-    return [logEndPoint, getLobbiesFromDb]; // performs the methods we declared
+    return [logEndPoint, getLobbyPk, getLobbiesFromDb]; // performs the methods we declared
 };
 
 module.exports = setup;

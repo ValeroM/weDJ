@@ -6,9 +6,15 @@ const setup = () => {
   const controller = songs(); // imports the controllers (i.e, whatever logic we want to perform)
   const router = express.Router();
 
+<<<<<<< HEAD
   router.get("/", controller.songsOnQueue); // calls the actual logic from the controller/songs/songs.js file
   router.post("/", controller.addSongsToQueue); // logic from controller/songs/postsongs.js
   router.post("/rate", controller.addSongRating); // Update song's rating
+=======
+  router.get("/", controller.songsOnTableSongs); // calls the actual logic from the controller/songs/songs.js file
+  router.post("/", controller.addSongsToTableSongs); // logic from controller/songs/postsongs.js
+  router.post("/add", controller.addSongsToQueue); // logic from controller/songs/posttoqueue.js
+>>>>>>> 7958664f795c63487afe77f736dd8720d202dfed
 
   return router;
 };

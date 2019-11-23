@@ -17,12 +17,22 @@ const setup = () => {
         // Parse JSON body to only get song_code
         const song_id = req.body.song_code;
 
+        // Create boolean variable for later
+        isSongFound = false;
         // After parsing, find song's primary key from table
         Song
             .findByPk(song_id)
-            .then(song_id_found = song_id)  // If found, store primary key in song_id_found
-            .catch(console.log("Song not found"));
-    };
+            .then(isSongFound = true)//song_id_found = song_id)  // If found, store primary key in song_id_found
+            .catch(res.status(404));
+
+        if (isSongFound)
+        {
+            // Set parse body as value to song_id_found
+            song_id_found = song_id;
+
+            // Return response
+            res.status(200);
+        }
 
     // Is this needed?
     // Return all songs in our songs table
@@ -30,7 +40,7 @@ const setup = () => {
     //     Song.findAll().then((songs) => res.status(200).json(songs));
     };
 
-    return [logEndPoint, sendBackSongsCodes]; // performs the methods we declared
+    return [logEndPoint, findSongPk, sendBackSongsCodes]; // performs the methods we declared
 };
 
 module.exports = setup;

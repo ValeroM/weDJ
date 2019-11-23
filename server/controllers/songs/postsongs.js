@@ -9,6 +9,7 @@ const setup = () => {
 
   // Add song code
   const addSongCode = (req, res) => {
+<<<<<<< HEAD
     const new_song = req.body; // only expects the code for the song. The one YT api gives us
 
     /* OBJECTIVE:
@@ -16,6 +17,9 @@ const setup = () => {
     If so, prevent song from being added
     */
 
+=======
+    const new_song = req.body; // only expects the code for the song (The one YT api gives us) and the name of the song. 
+>>>>>>> 7958664f795c63487afe77f736dd8720d202dfed
     Song.create(new_song)
       .then((song) => {
         res.status(200).json(song); // After adding song, send OK message and return the song
