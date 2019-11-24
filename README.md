@@ -100,7 +100,7 @@ Open up a new terminal and do the following steps:
 
 #### `[GET] /api/songs`  
 
-Returns a json array with objext, where each objext is a song in songs table:
+Returns a json array with objext, where each objext is a song in songs table:  
 
 ```[
   {
@@ -128,13 +128,10 @@ Returns a json array with objext, where each objext is a song in songs table:
 
 #### `[GET] /api/songs/queue`  
 
-Expects in the request body the lobby code: 
-
-```
-{
-	"lobby_code": "some lobby code"
-}
-```  
+Expects in the request body the lobby code:  
+`{
+"lobby_code": "some lobby code"
+}`  
 
 Returns a json of array of objects, where each object is a song from the queue for that specific lobby:  
 
