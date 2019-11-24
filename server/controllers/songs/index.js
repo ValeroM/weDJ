@@ -3,7 +3,8 @@ function setup() {
     // "()" is needed because we are calling a function
     songsOnTableSongs: require("./songs")(),
     addSongsToTableSongs: require("./postsongs")(),
-    addSongsToQueue: require("./posttoqueue")()
+    addSongsToQueue: require("./posttoqueue")(),
+    getSongsInQueue: require("./getsongsinqueue")()
   };
 }
 

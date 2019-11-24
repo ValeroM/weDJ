@@ -33,8 +33,13 @@ const setup = () => {
               res.status(400).json(err); // If cannot add song, send ERROR message
             });
         }
-        compositeKeyObj.songId = song.get('id'); // if already exist is our songs table, just get the pk
-        next(); // go to next method 
+        else {
+          compositeKeyObj.songId = song.get('id'); // if already exist is our songs table, just get the pk
+          next(); // go to next method 
+        }
+      })
+      .catch((err) => {
+        res.status(400).json(err);
       });
   };
 
@@ -47,14 +52,19 @@ const setup = () => {
         if (!lobby) { // if lobby not found, then we received wrong code from frontend. 
           return res.sendStatus(404);
         }
-        compositeKeyObj.lobbyId = lobby.get('id'); // if row found in lobby table, get the pk
-        next(); // go to next method
+        else {
+          compositeKeyObj.lobbyId = lobby.get('id'); // if row found in lobby table, get the pk
+          next(); // go to next method
+        }
+      })
+      .catch((err) => {
+        res.status(400).json(err);
       });
   };
 
   const addSongToQueueTableUsingCompositeKey = (req, res, next) => {
     const songEntryToQueue = { // the new record we are going to enter to queue table
-      rate: 0, // rate 0 because it was just added 
+      rate: 1, // rate 1 because it was just by someone
       lobbyId: compositeKeyObj.lobbyId,
       songId: compositeKeyObj.songId
     }
