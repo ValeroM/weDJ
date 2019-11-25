@@ -102,7 +102,8 @@ Open up a new terminal and do the following steps:
 
 Returns a json array with objext, where each objext is a song in songs table:  
 
-```[
+```json
+[
   {
     "id": 1,  
     "song_code": "first song code",  
@@ -124,70 +125,85 @@ Returns a json array with objext, where each objext is a song in songs table:
     "createdAt": "2019-11-24T19:48:06.961Z",
     "updatedAt": "2019-11-24T19:48:06.961Z"
   }
-]```  
+]  
+```
 
 #### `[GET] /api/songs/queue`  
 
 Expects in the request body the lobby code:  
-`{
-"lobby_code": "some lobby code"
-}`  
+
+```json
+{
+ "lobby_code": "some lobby code"
+}  
+```
 
 Returns a json of array of objects, where each object is a song from the queue for that specific lobby:  
 
-```[
+```json
+[
   {
     "id": 1,
     "rate": 1,
     "name": "1st song",
     "song_code": "first song code"
   }
-]```  
+] 
+```
 
 #### `[POST] /api/songs`  
 
 Expects in the request body:  
 
-```{
-	"song_code": "song code from YT Api",
-	"name": "some song name"
-}```  
+```json
+{
+ "song_code": "song code from YT Api",
+  "name": "some song name"
+}
+```
 
-Returns a json with the new song added to our songs table:
+Returns a json with the new song added to our songs table:  
 
-```{
+```json
+{
   "id": 4,
   "song_code": "some song code",
   "name": "some song name",
   "updatedAt": "2019-11-24T20:45:12.116Z",
   "createdAt": "2019-11-24T20:45:12.116Z"
-}```
+}
+```
 
 #### `[POST] /api/songs/add`  
 
 Expects in the request body:  
 
-```{
-	"song_code": "song code from YT Api",
-	"name": "some song name",
-  "lobby_code": "some lobby code"
-}```  
+```json
+{
+ "song_code": "song code from YT Api",
+ "name": "some song name",
+ "lobby_code": "some lobby code"
+}
+```
 
-Returns a json obj with the new song added to our queue table:
+Returns a json obj with the new song added to our queue table:  
 
-```{
+```json
+{
   "rate": 1,
   "lobbyId": 1,
   "songId": 2,
   "updatedAt": "2019-11-24T20:58:50.054Z",
   "createdAt": "2019-11-24T20:58:50.054Z"
-}```
+}
+```
 
 #### `[GET] /api/lobbies`  
 
 Returns a json array with objects, where each obj is a lobby in lobbies table:  
 
-```[
+```json
+[
   {
     "id": 1,
     "name": "first lobby",
@@ -209,22 +225,27 @@ Returns a json array with objects, where each obj is a lobby in lobbies table:
     "createdAt": "2019-11-24T19:45:28.822Z",
     "updatedAt": "2019-11-24T19:45:28.822Z"
   }
-]```  
+]
+```
 
-#### `[POST] /api/lobbies`  
+#### `[POST] /api/lobbies`   
 
 Expects in the request body:  
 
-```{
-	"name": "new lobby name"
-}```  
+```json 
+{
+ "name": "new lobby name"
+}  
+```
 
-Returns a json obj with the lobby code created for the lobby 
+Returns a json obj with the lobby code created for the lobby  
 
-```{
+```json 
+{
   "id": 4,
   "name": "lobby name",
   "lobby_code": "some lobby code",
   "updatedAt": "2019-11-24T21:02:01.948Z",
   "createdAt": "2019-11-24T21:02:01.948Z"
-}```
+}
+```
