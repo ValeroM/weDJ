@@ -4,7 +4,8 @@ function setup() {
     songsOnTableSongs: require("./songs")(),
     addSongsToTableSongs: require("./postsongs")(),
     addSongsToQueue: require("./posttoqueue")(),
-    getSongsInQueue: require("./getsongsinqueue")()
+    getSongsInQueue: require("./getsongsinqueue")(),
+    delSongInQueue: require("./delsonginqueue.js")()
   };
 }
 

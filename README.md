@@ -87,7 +87,8 @@ Open up a new terminal and do the following steps:
 | `[GET] /api/songs`                    | get songs in table songs                   |
 | `[GET] /api/songs/queue`              | get all the songs in a queue from a specific lobby  |
 | `[POST] /api/songs`                   | store a new song in table songs            |
-| `[POST] /api/songs/add`                | add a song to the queue from a specific lobby  |  
+| `[POST] /api/songs/add`                | add a song to the queue from a specific lobby  | 
+| `[DELETE] /api/songs/delete`                | delete a song from queue table for a specific lobby  |  
 
 ## Lobbies
 
@@ -196,7 +197,29 @@ Returns a json object with the new song added to our queue table:
   "updatedAt": "2019-11-24T20:58:50.054Z",
   "createdAt": "2019-11-24T20:58:50.054Z"
 }
+```  
+
+#### `[DELETE] /api/songs/delete`  
+
+Expects in the request body:  
+
+```json
+{
+ "song_code": "song code from YT Api",
+ "name": "some song name",
+ "lobby_code": "some lobby code"
+}
+```  
+
+Returns a json number, where 1 means sucessfull and 0 means unsuccessfull:  
+
+```json
+1
 ```
+or 
+```json 
+0 
+```  
 
 #### `[GET] /api/lobbies`  
 
