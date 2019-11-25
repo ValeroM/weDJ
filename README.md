@@ -1,6 +1,16 @@
 # weDJ
 
-This is weDJ. We are a web application that allows people to have a dynamic, shared playlist.
+This is weDJ. We are a web application that allows people to have a dynamic, shared playlist.  
+
+# Table of Contents
+- [Setup Guide](#setup-guide)
+- [Backend](#backend)
+  - [API Overview](#api-overview)
+    - [Songs](#songs)
+    - [Lobbies](#lobbies)
+  - [API Details](#api-details)
+    - [Songs](#songs)
+    - [Lobbies](#lobbies)
 
 # Setup guide
 
@@ -58,4 +68,207 @@ Open up a new terminal and do the following steps:
 
 `npm run dev`
 
-> This command will start both, the frontend the and backend _locally_ at localhost http://localhost:3000 and http://localhost:7001/api respectivetly.
+> This command will start both, the frontend the and backend _locally_ at localhost http://localhost:3000 and http://localhost:7001/api respectivetly.  
+
+# Backend
+
+# API Overview
+
+## Base
+
+| endpoint               | description       |
+| ---------------------- | ----------------- |
+| `[GET] /api` | welcoming message |
+
+## Songs
+
+| endpoint                              | description                                |
+| ------------------------------------- | ------------------------------------------ |
+| `[GET] /api/songs`                    | get songs in table songs                   |
+| `[GET] /api/songs/queue`              | get all the songs in a queue from a specific lobby  |
+| `[POST] /api/songs`                   | store a new song in table songs            |
+| `[POST] /api/songs/add`                | add a song to the queue from a specific lobby  | 
+| `[DELETE] /api/songs/delete`                | delete a song from queue table for a specific lobby  |  
+
+## Lobbies
+
+| endpoint                              | description                                |
+| ------------------------------------- | ------------------------------------------ |
+| `[GET] /api/lobbies`                  | get all lobbies store in lobby table       |
+| `[POST] /api/lobbies`                 | create a new lobby                         |  
+
+# API Details  
+
+#### `[GET] /api/songs`  
+
+Returns a json array with objects, where each object is a song in songs table:  
+
+```json
+[
+  {
+    "id": 1,  
+    "song_code": "first song code",  
+    "name": "1st song",  
+    "createdAt": "2019-11-24T19:46:36.192Z",  
+    "updatedAt": "2019-11-24T19:46:36.192Z"  
+  },
+  {
+    "id": 2,
+    "song_code": "second song code",
+    "name": "2nd song",
+    "createdAt": "2019-11-24T19:47:48.020Z",
+    "updatedAt": "2019-11-24T19:47:48.020Z"
+  },
+  {
+    "id": 3,
+    "song_code": "third song code",
+    "name": "3rd song",
+    "createdAt": "2019-11-24T19:48:06.961Z",
+    "updatedAt": "2019-11-24T19:48:06.961Z"
+  }
+]  
+```
+
+#### `[GET] /api/songs/queue`  
+
+Expects in the request body the lobby code:  
+
+```json
+{
+ "lobby_code": "some lobby code"
+}  
+```
+
+Returns a json of array of objects, where each object is a song from the queue for that specific lobby:  
+
+```json
+[
+  {
+    "id": 1,
+    "rate": 1,
+    "name": "1st song",
+    "song_code": "first song code"
+  }
+] 
+```
+
+#### `[POST] /api/songs`  
+
+Expects in the request body:  
+
+```json
+{
+ "song_code": "song code from YT Api",
+ "name": "some song name"
+}
+```
+
+Returns a json object with the new song added to our songs table:  
+
+```json
+{
+  "id": 4,
+  "song_code": "some song code",
+  "name": "some song name",
+  "updatedAt": "2019-11-24T20:45:12.116Z",
+  "createdAt": "2019-11-24T20:45:12.116Z"
+}
+```
+
+#### `[POST] /api/songs/add`  
+
+Expects in the request body:  
+
+```json
+{
+ "song_code": "song code from YT Api",
+ "name": "some song name",
+ "lobby_code": "some lobby code"
+}
+```
+
+Returns a json object with the new song added to our queue table:  
+
+```json
+{
+  "rate": 1,
+  "lobbyId": 1,
+  "songId": 2,
+  "updatedAt": "2019-11-24T20:58:50.054Z",
+  "createdAt": "2019-11-24T20:58:50.054Z"
+}
+```  
+
+#### `[DELETE] /api/songs/delete`  
+
+Expects in the request body:  
+
+```json
+{
+ "song_code": "song code from YT Api",
+ "name": "some song name",
+ "lobby_code": "some lobby code"
+}
+```  
+
+Returns a json number, where 1 means sucessfull and 0 means unsuccessfull:  
+
+```json
+1
+```
+or 
+```json 
+0 
+```  
+
+#### `[GET] /api/lobbies`  
+
+Returns a json array with objects, where each object is a lobby in lobbies table:  
+
+```json
+[
+  {
+    "id": 1,
+    "name": "first lobby",
+    "lobby_code": "Rv96ew",
+    "createdAt": "2019-11-24T19:45:16.488Z",
+    "updatedAt": "2019-11-24T19:45:16.488Z"
+  },
+  {
+    "id": 2,
+    "name": "second lobby",
+    "lobby_code": "JRfgkc",
+    "createdAt": "2019-11-24T19:45:24.621Z",
+    "updatedAt": "2019-11-24T19:45:24.621Z"
+  },
+  {
+    "id": 3,
+    "name": "third lobby",
+    "lobby_code": "xWaG2z",
+    "createdAt": "2019-11-24T19:45:28.822Z",
+    "updatedAt": "2019-11-24T19:45:28.822Z"
+  }
+]
+```
+
+#### `[POST] /api/lobbies`   
+
+Expects in the request body:  
+
+```json 
+{
+ "name": "new lobby name"
+}  
+```
+
+Returns a json object with the lobby code created for the lobby  
+
+```json 
+{
+  "id": 4,
+  "name": "lobby name",
+  "lobby_code": "some lobby code",
+  "updatedAt": "2019-11-24T21:02:01.948Z",
+  "createdAt": "2019-11-24T21:02:01.948Z"
+}
+```

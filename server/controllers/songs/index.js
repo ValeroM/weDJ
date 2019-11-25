@@ -8,8 +8,14 @@ function setup() {
 =======
     songsOnTableSongs: require("./songs")(),
     addSongsToTableSongs: require("./postsongs")(),
+<<<<<<< HEAD
     addSongsToQueue: require("./posttoqueue")()
 >>>>>>> 7958664f795c63487afe77f736dd8720d202dfed
+=======
+    addSongsToQueue: require("./posttoqueue")(),
+    getSongsInQueue: require("./getsongsinqueue")(),
+    delSongInQueue: require("./delsonginqueue.js")()
+>>>>>>> 0b2fa0947e175df475e329c9abfdb3c7e21ad73b
   };
 }
 
