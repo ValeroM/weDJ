@@ -100,7 +100,7 @@ Open up a new terminal and do the following steps:
 
 #### `[GET] /api/songs`  
 
-Returns a json array with objext, where each objext is a song in songs table:  
+Returns a json array with objects, where each object is a song in songs table:  
 
 ```json
 [
@@ -158,11 +158,11 @@ Expects in the request body:
 ```json
 {
  "song_code": "song code from YT Api",
-  "name": "some song name"
+ "name": "some song name"
 }
 ```
 
-Returns a json with the new song added to our songs table:  
+Returns a json object with the new song added to our songs table:  
 
 ```json
 {
@@ -186,7 +186,7 @@ Expects in the request body:
 }
 ```
 
-Returns a json obj with the new song added to our queue table:  
+Returns a json object with the new song added to our queue table:  
 
 ```json
 {
@@ -200,7 +200,7 @@ Returns a json obj with the new song added to our queue table:
 
 #### `[GET] /api/lobbies`  
 
-Returns a json array with objects, where each obj is a lobby in lobbies table:  
+Returns a json array with objects, where each object is a lobby in lobbies table:  
 
 ```json
 [
@@ -238,7 +238,7 @@ Expects in the request body:
 }  
 ```
 
-Returns a json obj with the lobby code created for the lobby  
+Returns a json object with the lobby code created for the lobby  
 
 ```json 
 {
