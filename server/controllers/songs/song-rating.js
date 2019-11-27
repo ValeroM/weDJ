@@ -66,12 +66,13 @@ const setup = () => {
             })
     }
 
-    const changeSongRating = (req, res, next) => {
+    const changeSongRating = (req, res) => {
         
         // OBJECTIVE: Go to Queue's lobby and fetch row with lobby's and song's id
 
         // Parse JSON body
         const incoming_rate = req.body.rate;
+
         Queue
             .findAll({where: {
                 lobbyId: compositeKeyObj.lobbyId,
@@ -79,14 +80,28 @@ const setup = () => {
             }})
             .then((isSongAndLobbyFound) => {
 
-                // If correct data is found, increment/decrement song's rating
-                if (incoming_rate == 1)
-                    isSongAndLobbyFound.increment("rate", {by: 1});
-                else
-                    isSongAndLobbyFound.decrement("rate", {by: 1});
+                // Check if matching lobbyId & songId were found.
+                if (isSongAndLobbyFound)
+                {
+                    // Get current song's rating
+                    // "rate" came from queues table in psql
+                    const current_song_rate = isSongAndLobbyFound.get("rate");
 
-                // Return JSON response
-                res.status(200).json(isSongAndLobbyFound);
+                    // Update rating by incrementing/decrementing it based on "incoming_rate"
+                    isSongAndLobbyFound
+                        .update(
+                        {rate: current_song_rate + incoming_rate},
+                        {where: {lobbyId: compositeKeyObj.lobbyId, songId: compositeKeyObj.songId}}
+                    )
+                        .then((updatedResponse) => {
+                            if (updatedResponse)
+                            {
+                                // Return JSON response
+                                res.status(200).json(isSongAndLobbyFound)
+                            }
+                        })
+                        .catch((err) => { res.status(200).json(err); }) // Return error as JSON
+                }
             })
             .catch((err) => {res.status(200).json(err);})
     }
