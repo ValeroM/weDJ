@@ -1,9 +1,12 @@
 import React from 'react';
 import '../App.css';
+import Cookies from 'js-cookie';
 
-class SongList extends React.Component {
+class songList1 extends React.Component {
     state = {
-      songList: [
+      songList: [],
+      lobbyid: '',
+      songList1: [
         {
           name: "Song1",
           artist: "Anthony",
@@ -30,9 +33,18 @@ class SongList extends React.Component {
         }
       ]
     }
+
+    componentDidMount = () => {
+
+      this.setState({
+        songList: this.props.songList,
+        lobbyid: this.props.lobbyid
+      })
+
+    }
   
     likeHandler = (song) => {
-      let newlist = this.state.songList
+      let newlist = this.state.songList1
   
       for( let i = 0; i < newlist.length; i ++ ){
         if( newlist[i].name === song ){
@@ -41,14 +53,14 @@ class SongList extends React.Component {
         }
       }
       this.setState({
-        songList : newlist
+        songList1 : newlist
       })
 
     }
     
     dislikeHandler = (song) => {
       
-      let newlist = this.state.songList
+      let newlist = this.state.songList1
   
       for( let i = 0; i < newlist.length; i ++ ){
         if( newlist[i].name === song ){
@@ -57,17 +69,17 @@ class SongList extends React.Component {
         }
       }
       this.setState({
-        songList : newlist
+        songList1 : newlist
       })
     }
   
-    renderSongList = () =>{
+    rendersongList1 = () =>{
       
-      let songlist = this.state.songList;
+      let songList1 = this.state.songList1;
   
-      songlist.sort((a, b) => a.likes > b.likes ? -1 : 1)
+      songList1.sort((a, b) => a.likes > b.likes ? -1 : 1)
   
-      let JSXoutList = songlist.map((song) =>
+      let JSXoutList = songList1.map((song) =>
       <div key={song.name}>
       <div style={{border: "2px solid Violet"}}>
         &#127925;
@@ -93,7 +105,7 @@ class SongList extends React.Component {
   
     render(){
   
-      let renderList = this.renderSongList();
+      let renderList = this.rendersongList1();
       return(
         <div className="text-center">
           <div>Now Playing:
@@ -104,4 +116,4 @@ class SongList extends React.Component {
     }
   }
 
-export default SongList;
+export default songList1;
