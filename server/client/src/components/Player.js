@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/videos.css';
+import YouTube from 'react-youtube';
 
 const Player = ( {video} ) => {
     
