@@ -5,7 +5,8 @@ function setup() {
     addSongsToTableSongs: require("./postsongs")(),
     addSongsToQueue: require("./posttoqueue")(),
     getSongsInQueue: require("./getsongsinqueue")(),
-    delSongInQueue: require("./delsonginqueue.js")()
+    delSongInQueue: require("./delsonginqueue.js")(),
+    updateSongRating: require("./updatesongrate.js")()
   };
 }
 

@@ -11,6 +11,7 @@ const setup = () => {
   router.post("/add", controller.addSongsToQueue); // logic from controller/songs/posttoqueue.js
   router.get("/queue/:lobbycode", controller.getSongsInQueue); // logic from controller/songs/getsongsinqueue.js
   router.delete("/delete", controller.delSongInQueue); // logic from controller/songs/deletesonginqueue.js
+  router.put("/rate/:lobbycode/:songcode/:rate", controller.updateSongRating);
 
   return router;
 };
