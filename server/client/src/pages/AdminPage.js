@@ -12,11 +12,13 @@ const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 export default class AdminPage extends React.Component{
     state = {
         songList: [],
+        newsongList: [],
         videoList: [],
         playingVideo: null,
         lobbyid:'',
         hasVideo: false,
         PlayingId: '',
+        playingName: ''
     }
 
     componentDidMount = async() => {
@@ -31,7 +33,8 @@ export default class AdminPage extends React.Component{
                 if( data ){
                     this.setState({
                         songList: list,
-                        playingId: list[0].song_code,
+                        playingId: list[1].song_code,
+                        playingName: list[1].name,
                         lobbyid : this.props.match.params.id,
                         hasVideo: true
                     })
@@ -44,9 +47,31 @@ export default class AdminPage extends React.Component{
                 }
             }).catch( err =>{
                 alert(err)
-            });
+            })
 
             //document.addEventListener('touchstart', handler, {passive: true});
+
+            const refresh = setInterval( async() =>{
+                const response = await fetch("http://localhost:7001/api/songs")
+                .then(res =>
+                    res.json())
+                    .then(data => {
+
+                        for( let i = 0; i < data.length; i++ ){
+                            if( data[i].song_code === this.state.playingId ){
+                                data.splice( i, 1 )
+                            }
+                        }
+                        
+                        data.sort((a, b) => (a.id < b.id) ? 1 : -1)
+                        
+                        this.setState({
+                            newsongList: data
+                        })
+
+                        console.log(this.state.newsongList,'\n',this.state.songList)
+                    });
+            }, 7000)
         
     }
 
@@ -57,41 +82,65 @@ export default class AdminPage extends React.Component{
             part:'snippet',
             type:'video',
             maxResults: 10,
-          });
+          })
         
         this.setState({
             videoList: response.items
-        });
+        })
     }
 
     selectHandler = (video) => {
         if( window.confirm("Are you sure to choose this track?") ){
             this.setState({
                 playingVideo: video
-            });
+            })
         }
     }
 
 
     _onReady = (event) => {
         // access to player in all event handlers via event.target
-        event.target.pauseVideo();
+        event.target.pauseVideo()
         
     }
 
 
     _onEnd = (playingId) =>{
-    
-        let list = this.state.songList
 
+        /*
+        let list = []
+
+        const response = await fetch("http://localhost:7001/api/songs"
+            ).then(response => 
+                response.json()
+            )
+            .then(data => {
+                list = data;
+            });
+
+        list.sort((a, b) => (a.id > b.id) ? 1 : -1)
         //remove song from queue then
-        list.shift();
+        for( let i = 0; i < list.length; i++ ){
+            if( list[i].song_code === playingId ){
+                list.splice( i, 1 )
+            }
+        }*/
+
+        let list = this.state.newsongList;
+
+        for( let i = 0; i < list.length; i++ ){
+            if( list[i].song_code === playingId ){
+                list.splice( i, 1 )
+            }
+        }
 
         let newid = list[0].song_code
+        let newname = list[0].name
     
         this.setState({
             songList: list,
-            playingId: newid
+            playingId: newid,
+            playingName: newname
         })
     
     }
@@ -130,7 +179,7 @@ export default class AdminPage extends React.Component{
                                     onEnd={()=>this._onEnd(this.state.PlayingId)}
                                 />
                             </div>
-                            <p>{this.state.songList[0].name}</p>
+                            <p>{this.state.playingName}</p>
                             </div>)}
                         </div>
                     <div>

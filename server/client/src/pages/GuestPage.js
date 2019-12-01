@@ -35,10 +35,7 @@ export default class AdminPage extends React.Component{
           // send the request
           xhr.send(JSON.stringify({ lobby_code: roomid }))*/
         
-        const response = await fetch('http://localhost:7001/api/songs/queue', {
-                lobby_code: roomid
-                }
-            )
+        const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
             .then(response => 
                 response.json()
             )
@@ -47,9 +44,9 @@ export default class AdminPage extends React.Component{
                     songList: data,
                     lobbyid: roomid
                 })
-            ).catch(err => console.log(err));
+            )
 
-            console.log(this.state.songList);
+            console.log(this.state.songList)
         
     }
 

@@ -12,9 +12,9 @@ const setup = () => {
   let finalData = []; // array of objs that will contain all songs for the front end from a specicic lobby
 
   const getLobbyId = (req, res, next) => {
-    const { lobby_code } = req.body // get lobby code from the request body
+    const { lobbycode } = req.params; // get lobby code from the request body
     Lobby.findOne({
-      where: { lobby_code: lobby_code },
+      where: { lobby_code: lobbycode },
     })
       .then(lobby => {
         if (!lobby) { // if lobby not found, then we received wrong code from frontend. 
