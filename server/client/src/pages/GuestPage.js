@@ -5,6 +5,8 @@ import SearchBar from "../components/SearchBar";
 import VideoList from "../components/VideoList";
 import Player from "../components/Player";
 import searchYoutube from 'youtube-api-v3-search';
+import YouTube from 'react-youtube';
+import Cookies from 'js-cookie';
 
 const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 
@@ -12,23 +14,40 @@ const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 export default class AdminPage extends React.Component{
     state = {
         videoList: [],
+        songList: [],
         selectedVideo: null,
-        selected: false
+        selected: false,
+        lobbyid: null
     }
 
     componentDidMount = async () => {
+
+        let roomid =  this.props.match.params.id
+
+        /*let xhr = new XMLHttpRequest()
+
+        xhr.addEventListener('load', () => {
+            // update the state of the component with the result here
+            console.log(xhr.response.json())
+          })
+          // open the request with the verb and the url
+          xhr.open('GET', 'http://localhost:7001/api/songs/queue')
+          // send the request
+          xhr.send(JSON.stringify({ lobby_code: roomid }))*/
         
-        const response = await fetch('http://localhost:7001/api/songs'
-        )
+        const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
             .then(response => 
                 response.json()
             )
             .then(data => 
-                /*this.setState({
-                    data
-                })*/
-                console.log(data)
-            );
+                this.setState({
+                    songList: data,
+                    lobbyid: roomid
+                })
+            )
+
+            console.log(this.state.songList)
+        
     }
 
     searchHandler = async (termFromSearchBar) => {
@@ -50,21 +69,22 @@ export default class AdminPage extends React.Component{
     selectHandler = async (video) =>{
 
         if( window.confirm("Are you sure to choose this track?") ){
-            /*************************************** */
-            //Store the following three data to DB and remount the component to render it into song list
-            //video ID
-            console.log(video);
-            //video title
-            console.log(video.snippet.title);
-            //video img smallest
-            let url = video.snippet.thumbnails.default.url;
 
-            await fetch('http://localhost:7001/api/songs', {
+            let id = video.id.videoId
+            let title = video.snippet.title
+            let lobbyid  = this.state.lobbyid
+
+            await fetch('http://localhost:7001/api/songs/add', {
                 method: 'POST',
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    song_code: video.id.videoId
+                    song_code: id,
+                    name: title,
+                    lobby_code: lobbyid
                 })
             })
+
+            
 
             this.setState({
                 selected: true,
@@ -91,7 +111,7 @@ export default class AdminPage extends React.Component{
                         </div>
                     )}
                 </div>
-                <SongList />
+                    {this.state.lobbyid && <SongList songList={this.state.songList} lobbyid={this.state.lobbyid}/> }
             </div>
         )
     }
