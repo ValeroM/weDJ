@@ -47,19 +47,37 @@ class SongList extends React.Component {
   
     }
     
+    deleteHandler = async(code,name) =>{
+      const res = await fetch("http://localhost:7001/api/songs/delete", {
+          method: 'DELETE',
+          headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                  song_code: code,
+                  name: name,
+                  lobby_code: this.state.lobbyid
+          })
+      }).catch( err => console.log(err))
+  }
 
     removeHandler = (code) => {
+      
+      if(window.confirm("Are you sure you want to delete this song?")){
+
         let newlist = this.state.songList
   
         for( let i = 0; i < newlist.length; i ++ ){
             if( newlist[i].song_code === code ){
+              this.deleteHandler(newlist[i].song_code, newlist[i].name, this.state.lobbyid)
                 newlist.splice( i, 1 );
   
         }
+        }
+          this.setState({
+              songList : newlist
+        })
+
       }
-        this.setState({
-            songList : newlist
-      })
+
     }
   
     renderSongList = () =>{

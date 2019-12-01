@@ -17,7 +17,8 @@ export default class AdminPage extends React.Component{
         songList: [],
         selectedVideo: null,
         selected: false,
-        lobbyid: null
+        lobbyid: null,
+        nowplaying: ''
     }
 
     componentDidMount = async () => {
@@ -45,8 +46,6 @@ export default class AdminPage extends React.Component{
                     lobbyid: roomid
                 })
             )
-
-            console.log(this.state.songList)
         
     }
 

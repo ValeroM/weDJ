@@ -51,7 +51,7 @@ class HomePage extends React.Component {
                 <button className="btn btn-info">About Us</button>
               </Link>
               <br/>
-              <br/><br/><br/>
+              <br/><br/><br/><br/>
           </div>
         );
       }

@@ -23,25 +23,27 @@ export default class AdminPage extends React.Component{
 
     componentDidMount = async() => {
 
-        const response = await fetch("http://localhost:7001/api/songs"
+        let roomid = this.props.match.params.id
+
+        const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`
             ).then(response => 
                 response.json()
             )
             .then(data => {
                 let list = data;
 
-                if( data ){
+                if( data.length !=0 ){
                     this.setState({
                         songList: list,
-                        playingId: list[1].song_code,
-                        playingName: list[1].name,
-                        lobbyid : this.props.match.params.id,
+                        playingId: list[0].song_code,
+                        playingName: list[0].name,
+                        lobbyid : roomid,
                         hasVideo: true
                     })
                 }
                 else {
                     this.setState({
-                        lobbyid : this.props.match.params.id,
+                        lobbyid : roomid,
                         hasVideo: false
                     })
                 }
@@ -52,24 +54,27 @@ export default class AdminPage extends React.Component{
             //document.addEventListener('touchstart', handler, {passive: true});
 
             const refresh = setInterval( async() =>{
-                const response = await fetch("http://localhost:7001/api/songs")
+                const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
                 .then(res =>
                     res.json())
                     .then(data => {
-
-                        for( let i = 0; i < data.length; i++ ){
-                            if( data[i].song_code === this.state.playingId ){
-                                data.splice( i, 1 )
+                        
+                        if(data.length >= 1){
+                            
+                            for( let i = 0; i < data.length; i++ ){
+                                if( data[i].song_code === this.state.playingId ){
+                                    this.deleteHandler(data[i].song_code, data[i].name)
+                                    data.splice( i, 1 )
+                                }
                             }
-                        }
-                        
-                        data.sort((a, b) => (a.id < b.id) ? 1 : -1)
-                        
-                        this.setState({
-                            newsongList: data
-                        })
+                            
+                            data.sort((a, b) => (a.id < b.id) ? 1 : -1)
+                            
+                            this.setState({
+                                newsongList: data
+                            })
+                    }
 
-                        console.log(this.state.newsongList,'\n',this.state.songList)
                     });
             }, 7000)
         
@@ -104,6 +109,18 @@ export default class AdminPage extends React.Component{
         
     }
 
+    deleteHandler = async(code,name) =>{
+        const res = await fetch("http://localhost:7001/api/songs/delete", {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    song_code: code,
+                    name: name,
+                    lobby_code: this.state.lobbyid
+            })
+        }).catch( err => console.log(err))
+    }
+
 
     _onEnd = (playingId) =>{
 
@@ -128,11 +145,12 @@ export default class AdminPage extends React.Component{
 
         let list = this.state.newsongList;
 
-        for( let i = 0; i < list.length; i++ ){
+        /*for( let i = 0; i < list.length; i++ ){
             if( list[i].song_code === playingId ){
                 list.splice( i, 1 )
+                this.deleteHandler(list[i].song_code, list[i].name)
             }
-        }
+        }*/
 
         let newid = list[0].song_code
         let newname = list[0].name
@@ -184,6 +202,9 @@ export default class AdminPage extends React.Component{
                         </div>
                     <div>
                         <VideoList selectHandler={this.selectHandler} videos={this.state.videoList}/>
+                    </div>
+                    <div>
+                        <button onClick={()=>this._onEnd(this.state.PlayingId)}>Next</button>
                     </div>
                     <h2 className="text-center">Manage Your Party</h2>
                     <br/>
