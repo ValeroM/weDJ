@@ -18,7 +18,8 @@ export default class AdminPage extends React.Component{
         lobbyid:'',
         hasVideo: false,
         PlayingId: '',
-        playingName: ''
+        playingName: '',
+        selected: false
     }
 
     componentDidMount = async() => {
@@ -96,15 +97,33 @@ export default class AdminPage extends React.Component{
           })
         
         this.setState({
-            videoList: response.items
+            videoList: response.items,
+            selected: false
         })
     }
 
-    selectHandler = (video) => {
+    selectHandler = async(video) => {
         if( window.confirm("Are you sure to choose this track?") ){
-            this.setState({
-                playingVideo: video
+
+            let id = video.id.videoId
+            let title = video.snippet.title
+            let lobbyid  = this.state.lobbyid
+
+            await fetch('http://localhost:7001/api/songs/add', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    song_code: id,
+                    name: title,
+                    lobby_code: lobbyid
+                })
             })
+
+            this.setState({
+                selected: true,
+                videoList: [],
+                playingVideo: video
+            });
         }
     }
 
@@ -206,9 +225,18 @@ export default class AdminPage extends React.Component{
                             <p>Playing</p>
                             </div>)}
                         </div>
-                    <div>
+                        <div>
+                    {!this.state.selected && (
+                        <div>
                         <VideoList selectHandler={this.selectHandler} videos={this.state.videoList}/>
                     </div>
+                    )}
+                    {this.state.selected && (
+                        <div>
+                            <h3>Track submitted!</h3>
+                        </div>
+                    )}
+                </div>
                     <div>
                         <button onClick={()=>this._onEnd(this.state.PlayingId)}>Next</button>
                     </div>

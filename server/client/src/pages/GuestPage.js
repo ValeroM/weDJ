@@ -24,17 +24,6 @@ export default class AdminPage extends React.Component{
     componentDidMount = async () => {
 
         let roomid =  this.props.match.params.id
-
-        /*let xhr = new XMLHttpRequest()
-
-        xhr.addEventListener('load', () => {
-            // update the state of the component with the result here
-            console.log(xhr.response.json())
-          })
-          // open the request with the verb and the url
-          xhr.open('GET', 'http://localhost:7001/api/songs/queue')
-          // send the request
-          xhr.send(JSON.stringify({ lobby_code: roomid }))*/
         
         const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
             .then(response => 
