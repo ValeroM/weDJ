@@ -18,7 +18,8 @@ export default class AdminPage extends React.Component{
         lobbyid:'',
         hasVideo: false,
         PlayingId: '',
-        playingName: ''
+        playingName: '',
+        selected: false
     }
 
     componentDidMount = async() => {
@@ -33,12 +34,16 @@ export default class AdminPage extends React.Component{
                 let list = data;
 
                 if( data.length !=0 ){
+
+                    list.sort((a, b) => (a.rate < b.rate) ? 1 : -1)
+
                     this.setState({
                         songList: list,
                         playingId: list[0].song_code,
                         playingName: list[0].name,
                         lobbyid : roomid,
-                        hasVideo: true
+                        hasVideo: true,
+                        newsongList: list
                     })
                 }
                 else {
@@ -68,15 +73,17 @@ export default class AdminPage extends React.Component{
                                 }
                             }
                             
-                            data.sort((a, b) => (a.id < b.id) ? 1 : -1)
+                            data.sort((a, b) => (a.rate < b.rate) ? 1 : -1)
                             
                             this.setState({
                                 newsongList: data
                             })
+
+                            //console.log(this.state.newsongList)
                     }
 
                     });
-            }, 7000)
+            }, 5000)
         
     }
 
@@ -90,15 +97,33 @@ export default class AdminPage extends React.Component{
           })
         
         this.setState({
-            videoList: response.items
+            videoList: response.items,
+            selected: false
         })
     }
 
-    selectHandler = (video) => {
+    selectHandler = async(video) => {
         if( window.confirm("Are you sure to choose this track?") ){
-            this.setState({
-                playingVideo: video
+
+            let id = video.id.videoId
+            let title = video.snippet.title
+            let lobbyid  = this.state.lobbyid
+
+            await fetch('http://localhost:7001/api/songs/add', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    song_code: id,
+                    name: title,
+                    lobby_code: lobbyid
+                })
             })
+
+            this.setState({
+                selected: true,
+                videoList: [],
+                playingVideo: video
+            });
         }
     }
 
@@ -142,7 +167,6 @@ export default class AdminPage extends React.Component{
                 list.splice( i, 1 )
             }
         }*/
-
         let list = this.state.newsongList;
 
         /*for( let i = 0; i < list.length; i++ ){
@@ -152,17 +176,26 @@ export default class AdminPage extends React.Component{
             }
         }*/
 
-        let newid = list[0].song_code
-        let newname = list[0].name
+        if( list.length != 0 ){
+            
+            let newid = list[0].song_code
+            let newname = list[0].name
     
-        this.setState({
-            songList: list,
-            playingId: newid,
-            playingName: newname
-        })
+            this.setState({
+                songList: list,
+                playingId: newid,
+                playingName: newname
+            })
+        }
+        else{
+            this.setState({
+                songList: list,
+                playingId: '',
+                hasVideo: false
+            })
+        }
     
     }
-
 
     render(){
 
@@ -197,18 +230,24 @@ export default class AdminPage extends React.Component{
                                     onEnd={()=>this._onEnd(this.state.PlayingId)}
                                 />
                             </div>
-                            <p>{this.state.playingName}</p>
+                            <p>Playing</p>
                             </div>)}
                         </div>
-                    <div>
+                        <div>
+                    {!this.state.selected && (
+                        <div>
                         <VideoList selectHandler={this.selectHandler} videos={this.state.videoList}/>
                     </div>
-                    <div>
-                        <button onClick={()=>this._onEnd(this.state.PlayingId)}>Next</button>
-                    </div>
+                    )}
+                    {this.state.selected && (
+                        <div>
+                            <h3>Track submitted!</h3>
+                        </div>
+                    )}
+                </div>
                     <h2 className="text-center">Manage Your Party</h2>
                     <br/>
-                    {this.state.lobbyid && <SongManage songList={this.state.songList} lobbyid={this.state.lobbyid}/> }
+                    {this.state.lobbyid && <SongManage songList={this.state.newsongList} lobbyid={this.state.lobbyid}/> }
                 </div>
             </div>
         )
