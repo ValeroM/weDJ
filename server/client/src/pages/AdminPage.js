@@ -33,12 +33,16 @@ export default class AdminPage extends React.Component{
                 let list = data;
 
                 if( data.length !=0 ){
+
+                    list.sort((a, b) => (a.rate < b.rate) ? 1 : -1)
+
                     this.setState({
                         songList: list,
                         playingId: list[0].song_code,
                         playingName: list[0].name,
                         lobbyid : roomid,
-                        hasVideo: true
+                        hasVideo: true,
+                        newsongList: list
                     })
                 }
                 else {
@@ -68,15 +72,17 @@ export default class AdminPage extends React.Component{
                                 }
                             }
                             
-                            data.sort((a, b) => (a.id < b.id) ? 1 : -1)
+                            data.sort((a, b) => (a.rate < b.rate) ? 1 : -1)
                             
                             this.setState({
                                 newsongList: data
                             })
+
+                            //console.log(this.state.newsongList)
                     }
 
                     });
-            }, 7000)
+            }, 5000)
         
     }
 
@@ -197,7 +203,7 @@ export default class AdminPage extends React.Component{
                                     onEnd={()=>this._onEnd(this.state.PlayingId)}
                                 />
                             </div>
-                            <p>{this.state.playingName}</p>
+                            <p>Playing</p>
                             </div>)}
                         </div>
                     <div>
@@ -208,7 +214,7 @@ export default class AdminPage extends React.Component{
                     </div>
                     <h2 className="text-center">Manage Your Party</h2>
                     <br/>
-                    {this.state.lobbyid && <SongManage songList={this.state.songList} lobbyid={this.state.lobbyid}/> }
+                    {this.state.lobbyid && <SongManage songList={this.state.newsongList} lobbyid={this.state.lobbyid}/> }
                 </div>
             </div>
         )
