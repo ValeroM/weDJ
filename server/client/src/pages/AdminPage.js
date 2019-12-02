@@ -167,7 +167,6 @@ export default class AdminPage extends React.Component{
                 list.splice( i, 1 )
             }
         }*/
-
         let list = this.state.newsongList;
 
         /*for( let i = 0; i < list.length; i++ ){
@@ -177,17 +176,26 @@ export default class AdminPage extends React.Component{
             }
         }*/
 
-        let newid = list[0].song_code
-        let newname = list[0].name
+        if( list.length != 0 ){
+            
+            let newid = list[0].song_code
+            let newname = list[0].name
     
-        this.setState({
-            songList: list,
-            playingId: newid,
-            playingName: newname
-        })
+            this.setState({
+                songList: list,
+                playingId: newid,
+                playingName: newname
+            })
+        }
+        else{
+            this.setState({
+                songList: list,
+                playingId: '',
+                hasVideo: false
+            })
+        }
     
     }
-
 
     render(){
 
@@ -237,9 +245,6 @@ export default class AdminPage extends React.Component{
                         </div>
                     )}
                 </div>
-                    <div>
-                        <button onClick={()=>this._onEnd(this.state.PlayingId)}>Next</button>
-                    </div>
                     <h2 className="text-center">Manage Your Party</h2>
                     <br/>
                     {this.state.lobbyid && <SongManage songList={this.state.newsongList} lobbyid={this.state.lobbyid}/> }
