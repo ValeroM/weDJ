@@ -26,7 +26,7 @@ class songList1 extends React.Component {
         lobbyid: this.props.lobbyid,
         haslist: has
       })
-
+/*
       const refresh = setInterval( async() =>{
         const response = await fetch(`http://localhost:7001/api/songs/queue/${this.state.lobbyid}`)
         .then(res =>
@@ -47,7 +47,7 @@ class songList1 extends React.Component {
                   })
                 }
             });
-    }, 1000)
+    }, 1000)*/
       
     }
   

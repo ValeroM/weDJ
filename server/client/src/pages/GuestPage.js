@@ -8,6 +8,7 @@ import Player from "../components/Player";
 import searchYoutube from 'youtube-api-v3-search';
 import YouTube from 'react-youtube';
 import Cookies from 'js-cookie';
+import Footer from '../components/Footer'
 
 const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 
@@ -82,8 +83,11 @@ export default class AdminPage extends React.Component{
     }
 
     render(){
+
+        document.body.style.backgroundColor = "#fefbd8";
+
         return(
-            <div className="text-center">
+            <div className="text-center page-bg">
                 <h1 className='page-header'>Welcome to the Party!</h1>
                 <div className='searchbar'>
                     <SearchBar submitBack={this.searchHandler} />
@@ -101,6 +105,7 @@ export default class AdminPage extends React.Component{
                     )}
                 </div>
                     {this.state.lobbyid && <SongList songList={this.state.songList} lobbyid={this.state.lobbyid}/> }
+                    <Footer />
             </div>
         )
     }

@@ -7,6 +7,7 @@ import VideoList from "../components/VideoList";
 import YouTube from 'react-youtube';
 import searchYoutube from 'youtube-api-v3-search';
 import gif from '../img/dogtyping.gif'
+import Footer from '../components/Footer';
 
 const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 
@@ -171,6 +172,8 @@ export default class AdminPage extends React.Component{
 
     render(){
 
+        document.body.style.backgroundColor = "#fefbd8";
+
         const opts = {
             height: '390',
             width: '640',
@@ -222,6 +225,7 @@ export default class AdminPage extends React.Component{
                     <h2 className="text-center">Manage Your Party</h2>
                     {this.state.lobbyid && <SongManage songList={this.state.newsongList} lobbyid={this.state.lobbyid}/> }
                 </div>
+                <Footer />
             </div>
         )
     }
