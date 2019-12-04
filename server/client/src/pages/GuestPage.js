@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import '../style/page.css'
 import SongList from "../components/SongList";
 import SearchBar from "../components/SearchBar";
 import VideoList from "../components/VideoList";
@@ -70,9 +71,7 @@ export default class AdminPage extends React.Component{
                     name: title,
                     lobby_code: lobbyid
                 })
-            })
-
-            
+            })        
 
             this.setState({
                 selected: true,
@@ -85,8 +84,10 @@ export default class AdminPage extends React.Component{
     render(){
         return(
             <div className="text-center">
-                <h1>Welcome to the Party!</h1>
-                <SearchBar submitBack={this.searchHandler} />
+                <h1 className='page-header'>Welcome to the Party!</h1>
+                <div className='searchbar'>
+                    <SearchBar submitBack={this.searchHandler} />
+                </div>
                 <div>
                     {!this.state.selected && (
                         <div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import '../style/page.css'
 import SongManage from "../components/SongManage";
 import SearchBar from "../components/SearchBar";
 import VideoList from "../components/VideoList";
@@ -57,7 +58,7 @@ export default class AdminPage extends React.Component{
             })
 
             //document.addEventListener('touchstart', handler, {passive: true});
-
+/*
             const refresh = setInterval( async() =>{
                 const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
                 .then(res =>
@@ -78,13 +79,9 @@ export default class AdminPage extends React.Component{
                             this.setState({
                                 newsongList: data
                             })
-
-                            //console.log(this.state.newsongList)
                     }
-
                     });
-            }, 5000)
-        
+            }, 5000)*/
     }
 
     searchHandler = async ( keyword ) => {
@@ -149,32 +146,7 @@ export default class AdminPage extends React.Component{
 
     _onEnd = (playingId) =>{
 
-        /*
-        let list = []
-
-        const response = await fetch("http://localhost:7001/api/songs"
-            ).then(response => 
-                response.json()
-            )
-            .then(data => {
-                list = data;
-            });
-
-        list.sort((a, b) => (a.id > b.id) ? 1 : -1)
-        //remove song from queue then
-        for( let i = 0; i < list.length; i++ ){
-            if( list[i].song_code === playingId ){
-                list.splice( i, 1 )
-            }
-        }*/
         let list = this.state.newsongList;
-
-        /*for( let i = 0; i < list.length; i++ ){
-            if( list[i].song_code === playingId ){
-                list.splice( i, 1 )
-                this.deleteHandler(list[i].song_code, list[i].name)
-            }
-        }*/
 
         if( list.length != 0 ){
             
@@ -211,11 +183,11 @@ export default class AdminPage extends React.Component{
             <div>
                 <div>
                     <div className="text-center">
-                        <h2>Welcome to Your Party</h2>
+                        <h1 className='page-header'>Welcome to Your Party</h1>
                         <h4>Your Party Code is: {this.state.lobbyid}</h4>
                     </div>
                     
-                    <div className="text-center">
+                    <div className="text-center searchbar">
                         <SearchBar submitBack={this.searchHandler} />
                     </div>
                         <div className="text-center">
@@ -230,7 +202,7 @@ export default class AdminPage extends React.Component{
                                     onEnd={()=>this._onEnd(this.state.PlayingId)}
                                 />
                             </div>
-                            <p>Playing</p>
+                            <p>Now Playing: {this.state.songList[0].name}</p>
                             </div>)}
                         </div>
                         <div>
