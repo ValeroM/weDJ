@@ -2,20 +2,31 @@ import React from 'react';
 import '../App.css';
 import '../style/songlist.css'
 import Cookies from 'js-cookie';
+import gif from '../img/dogtyping.gif'
 
 class songList1 extends React.Component {
-    state = {
-      songList: [],
-      lobbyid: ''
-    }
+    
+  state = {
+    songList: [],
+    lobbyid: '',
+    haslist: false
+  }
 
     componentDidMount = () => {
 
+      let has = false
+      
+      if(this.props.songList.length >= 1){
+        has = true
+      }
+      else has = false
+      
       this.setState({
         songList: this.props.songList,
-        lobbyid: this.props.lobbyid
+        lobbyid: this.props.lobbyid,
+        haslist: has
       })
-/*
+
       const refresh = setInterval( async() =>{
         const response = await fetch(`http://localhost:7001/api/songs/queue/${this.state.lobbyid}`)
         .then(res =>
@@ -26,11 +37,17 @@ class songList1 extends React.Component {
                     data.sort((a, b) => a.rate > b.rate ? -1 : 1)
                     
                     this.setState({
-                        songList: data
+                        songList: data,
+                        haslist: true
                     })
                 }
+                else {
+                  this.setState({
+                      haslist: false
+                  })
+                }
             });
-    }, 5000)*/
+    }, 1000)
       
     }
   
@@ -111,23 +128,27 @@ class songList1 extends React.Component {
 
         &nbsp;
 
-        <button className="votebtn" onClick={()=>this.removeCookies(song.song_code)}>xx
-
-        </button>
+        <button className="votebtn" onClick={()=>this.removeCookies(song.song_code)}>xx</button>
       </div>
       </div>
       )
   
       return JSXoutList;
     }
-  
+
     render(){
-  
+ 
       let renderList = this.rendersongList();
       return(
         <div className="text-center">
-          <div><h5 style={{paddingTop: '5px', paddingBottom: '5px'}}>Now Playing:</h5>
-                {renderList}</div>
+          {this.state.haslist && 
+            (<div><h5 style={{paddingTop: '5px', paddingBottom: '5px'}}>Now Playing:</h5>
+                {renderList}</div>)}
+          {!this.state.haslist && 
+            (<div>
+              <h5 style={{paddingTop: '5px', paddingBottom: '5px'}}>No song in the playlist, let's submit some!</h5>
+              <img src={gif} alt="loading..." />
+            </div>)}
         </div>
       )
     }

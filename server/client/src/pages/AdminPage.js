@@ -6,6 +6,7 @@ import SearchBar from "../components/SearchBar";
 import VideoList from "../components/VideoList";
 import YouTube from 'react-youtube';
 import searchYoutube from 'youtube-api-v3-search';
+import gif from '../img/dogtyping.gif'
 
 const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 
@@ -58,7 +59,7 @@ export default class AdminPage extends React.Component{
             })
 
             //document.addEventListener('touchstart', handler, {passive: true});
-/*
+
             const refresh = setInterval( async() =>{
                 const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
                 .then(res =>
@@ -81,7 +82,7 @@ export default class AdminPage extends React.Component{
                             })
                     }
                     });
-            }, 5000)*/
+            }, 1000)
     }
 
     searchHandler = async ( keyword ) => {
@@ -166,7 +167,6 @@ export default class AdminPage extends React.Component{
                 hasVideo: false
             })
         }
-    
     }
 
     render(){
@@ -191,7 +191,9 @@ export default class AdminPage extends React.Component{
                         <SearchBar submitBack={this.searchHandler} />
                     </div>
                         <div className="text-center">
-                            {!this.state.hasVideo && (<div>No Current Playing</div>)}
+                            {!this.state.hasVideo && 
+                                (<div><h5 style={{paddingTop: '5px', paddingBottom: '5px'}}>No current playing, let's submit some!</h5>
+                                    <img src={gif} alt="loading..." /></div>)}
                             {this.state.hasVideo && (
                             <div className="player-section">
                             <div>
@@ -218,7 +220,6 @@ export default class AdminPage extends React.Component{
                     )}
                 </div>
                     <h2 className="text-center">Manage Your Party</h2>
-                    <br/>
                     {this.state.lobbyid && <SongManage songList={this.state.newsongList} lobbyid={this.state.lobbyid}/> }
                 </div>
             </div>
