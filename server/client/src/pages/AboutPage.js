@@ -6,17 +6,22 @@ export default class AboutPage extends React.Component {
         return (
             <div>
                 <h1 className="text-center">About WeDJ</h1>
-                    <p>WeDJ is a website that allows multiple users to choose their favorite songs and collaborate on which song 
-                        should be played next. The first song submitted is the one that starts playing with its YouTube video 
-                        displayed on the screen. The songs that are submitted afterwards are queued. If users, that are currently 
-                        on the website, do not like the upcoming song, then they are able to  “downvote” it and the song will move 
-                        down. The more dislikes a song gets, the deeper on the queue the song moves. Alternatively, if the last 
-                        submitted song on the queue is upvoted by a majority of the people in the “party”, then it will move up. 
-                        If it has more likes than the song in line above it, it will switch places with the latter and so on until 
-                        it gets to the front of the queue. </p>
-                <h1 className="text-center">About This Project</h1>
-                    <p>This is a web design project under the instruction of 
-                        <a href="https://cunytechprep.nyc/" target="_blank" rel="noopener noreferrer"> Cuny Tech Prep</a></p>
+                    <p>
+                        A party DJ can be extremely expensive, depending on the occasion and its duration. 
+                        A wedding DJ, for instance, can cost about $400 per hour or $1,200 in total. 
+                        Please keep in mind, DJs have a predetermined playlist that automatically plays the next song, so they just need to press the Play button. 
+                        Unfortunately, party guests are not allowed to voice their opinion about the music. 
+                        However, weDJ tackles this issue and offers a voice to all party guests.<br/>
+
+                        <br/>weDJ is a web application that allows party guests to submit a song request without any payment. 
+                        When a song is submitted, other guests can either like or dislike the song. 
+                        Depending on the song’s votes, it can either be moved up or down in the queue. 
+                        Songs with the highest vote will have a higher priority to be played next, and vice versa. 
+                        The choice is yours!<br/>
+
+                        <br/>The creators of weDJ strongly believe that a music playlist should not be biased, but collaborative. 
+                        Let others share their taste in music and, possibly, introduce you to a new genre for your music player.<br/>
+                    </p>
                 <h1 className="text-center">About Us</h1>
                     <div className="text-center">
                         <p>Team Members: </p>
