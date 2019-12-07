@@ -25,7 +25,7 @@ class SongList extends React.Component {
     }
     
     deleteHandler = async(code,name) =>{
-      const res = await fetch("http://localhost:7001/api/songs/delete", {
+      const res = await fetch("https://wedj-backend.herokuapp.com/songs/delete", {
           method: 'DELETE',
           headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({

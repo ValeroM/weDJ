@@ -27,7 +27,7 @@ export default class AdminPage extends React.Component{
 
         let roomid =  this.props.match.params.id
         
-        const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
+        const response = await fetch(`https://wedj-backend.herokuapp.com/songs/queue/${roomid}`)
             .then(response => 
                 response.json()
             )
@@ -64,7 +64,7 @@ export default class AdminPage extends React.Component{
             let title = video.snippet.title
             let lobbyid  = this.state.lobbyid
 
-            await fetch('http://localhost:7001/api/songs/add', {
+            await fetch('https://wedj-backend.herokuapp.com/songs/add', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({

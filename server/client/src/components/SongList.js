@@ -26,9 +26,9 @@ class songList1 extends React.Component {
         lobbyid: this.props.lobbyid,
         haslist: has
       })
-/*
+
       const refresh = setInterval( async() =>{
-        const response = await fetch(`http://localhost:7001/api/songs/queue/${this.state.lobbyid}`)
+        const response = await fetch(`https://wedj-backend.herokuapp.com/songs/queue/${this.state.lobbyid}`)
         .then(res =>
             res.json())
             .then(data => {
@@ -47,7 +47,7 @@ class songList1 extends React.Component {
                   })
                 }
             });
-    }, 1000)*/
+    }, 1000)
       
     }
   
@@ -67,7 +67,7 @@ class songList1 extends React.Component {
 
       Cookies.set(`rate${code}`, 'voted', {path: ''});
 
-      const resp = await fetch(`http://localhost:7001/api/songs/rate/${this.state.lobbyid}/${code}/1`, {
+      const resp = await fetch(`https://wedj-backend.herokuapp.com/songs/rate/${this.state.lobbyid}/${code}/1`, {
         method: "PUT"
       }).catch(err => console.log(err))
 
@@ -89,7 +89,7 @@ class songList1 extends React.Component {
 
       Cookies.set(`rate${code}`, 'voted', {path: ''});
 
-      const resp = await fetch(`http://localhost:7001/api/songs/rate/${this.state.lobbyid}/${code}/-1`, {
+      const resp = await fetch(`https://wedj-backend.herokuapp.com/songs/rate/${this.state.lobbyid}/${code}/-1`, {
         method: "PUT"
       }).catch(err => console.log(err))
 
