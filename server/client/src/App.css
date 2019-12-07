@@ -49,3 +49,9 @@
 .song {
   border: 2px solid Violet;
 }
+
+@media screen and (max-width: 600px) {
+  .App-header {
+    font-size: 35px;
+  }
+}

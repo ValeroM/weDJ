@@ -1,70 +1,53 @@
 import React from 'react';
 import '../App.css';
+import '../style/songlist.css'
 import Cookies from 'js-cookie';
+import gif from '../img/dogtyping.gif'
 
 class songList1 extends React.Component {
-    state = {
-      songList: [],
-      lobbyid: '',
-      songList1: [
-        {
-          name: "Song1",
-          artist: "Anthony",
-          likes: 4,
-          dislikes: 0,
-          song_code: 'abcsd'
-        },
-        {
-          name: "Song2",
-          artist: "Jackson",
-          likes: 3,
-          dislikes: 1,
-          song_code: 'serg'
-        },
-        {
-          name: "Song3",
-          artist: "Marco",
-          likes: 2,
-          dislikes: 1,
-          song_code: 'ertq'
-        },
-        {
-          name: "Song4",
-          artist: "Ryan",
-          likes: 1,
-          dislikes: 4,
-          song_code: 'rtdf'
-        }
-      ]
-    }
+    
+  state = {
+    songList: [],
+    lobbyid: '',
+    haslist: false
+  }
 
     componentDidMount = () => {
 
+      let has = false
+      
+      if(this.props.songList.length >= 1){
+        has = true
+      }
+      else has = false
+      
       this.setState({
         songList: this.props.songList,
-        lobbyid: this.props.lobbyid
+        lobbyid: this.props.lobbyid,
+        haslist: has
       })
 
       const refresh = setInterval( async() =>{
-        const response = await fetch(`http://localhost:7001/api/songs/queue/${this.state.lobbyid}`)
+        const response = await fetch(`https://wedj-backend.herokuapp.com/songs/queue/${this.state.lobbyid}`)
         .then(res =>
             res.json())
             .then(data => {
                 if(data.length >= 1){
-                    /*for( let i = 0; i < data.length; i++ ){
-                        if( data[i].song_code === this.state.nowplaying ){
-                            data.splice( i, 1 )
-                        }
-                    }*/
+
                     data.sort((a, b) => a.rate > b.rate ? -1 : 1)
                     
                     this.setState({
-                        songList: data
+                        songList: data,
+                        haslist: true
                     })
-                //console.log(this.state.nowplaying)
+                }
+                else {
+                  this.setState({
+                      haslist: false
+                  })
                 }
             });
-    }, 5000)
+    }, 1000)
       
     }
   
@@ -84,7 +67,7 @@ class songList1 extends React.Component {
 
       Cookies.set(`rate${code}`, 'voted', {path: ''});
 
-      const resp = await fetch(`http://localhost:7001/api/songs/rate/${this.state.lobbyid}/${code}/1`, {
+      const resp = await fetch(`https://wedj-backend.herokuapp.com/songs/rate/${this.state.lobbyid}/${code}/1`, {
         method: "PUT"
       }).catch(err => console.log(err))
 
@@ -96,7 +79,7 @@ class songList1 extends React.Component {
   
       for( let i = 0; i < newlist.length; i ++ ){
         if( newlist[i].song_code === code ){
-          newlist[i].rate = newlist[i].rate + 1;
+          newlist[i].rate = newlist[i].rate - 1;
   
         }
       }
@@ -106,7 +89,7 @@ class songList1 extends React.Component {
 
       Cookies.set(`rate${code}`, 'voted', {path: ''});
 
-      const resp = await fetch(`http://localhost:7001/api/songs/rate/${this.state.lobbyid}/${code}/-1`, {
+      const resp = await fetch(`https://wedj-backend.herokuapp.com/songs/rate/${this.state.lobbyid}/${code}/-1`, {
         method: "PUT"
       }).catch(err => console.log(err))
 
@@ -122,11 +105,10 @@ class songList1 extends React.Component {
   
       let JSXoutList = songList.map((song) =>
       <div key={song.song_code}>
-      <div style={{border: "2px solid Violet"}}>
-        &#127925;
-        {song.name}	&nbsp;	&nbsp;rating:&nbsp;{song.rate}&nbsp;	&nbsp;
+      <div className='songblock'>
+        <p className='title'><span>&#127925;</span>&nbsp;{song.name}	&nbsp;	&nbsp;Rating:&nbsp;{song.rate}</p>
         
-        <button className="btn btn-outline-danger" onClick={()=>this.likeHandler(song.song_code)} 
+        <button className="votebtn btn btn-outline-danger" onClick={()=>this.likeHandler(song.song_code)} 
           disabled={Cookies.get(`rate${song.song_code}`) === 'voted'} >
           
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fillRule="evenodd" 
@@ -136,7 +118,7 @@ class songList1 extends React.Component {
         
         &nbsp;
         
-        <button className="btn btn-outline-secondary" onClick={()=>this.dislikeHandler(song.song_code)}
+        <button className="votebtn btn btn-outline-secondary" onClick={()=>this.dislikeHandler(song.song_code)}
           disabled={Cookies.get(`rate${song.song_code}`) === 'voted'} >
           
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fillRule="evenodd" 
@@ -146,25 +128,27 @@ class songList1 extends React.Component {
 
         &nbsp;
 
-        <button onClick={()=>this.removeCookies(song.song_code)}>xx
-
-        </button>
+        <button className="votebtn" onClick={()=>this.removeCookies(song.song_code)}>xx</button>
       </div>
-      <br/>
       </div>
       )
   
       return JSXoutList;
     }
-  
+
     render(){
-  
+ 
       let renderList = this.rendersongList();
       return(
         <div className="text-center">
-          <div>Now Playing:
-                <br/><br/>
-                {renderList}</div>
+          {this.state.haslist && 
+            (<div><h5 style={{paddingTop: '5px', paddingBottom: '5px'}}>Now Playing:</h5>
+                {renderList}</div>)}
+          {!this.state.haslist && 
+            (<div>
+              <h5 style={{paddingTop: '5px', paddingBottom: '5px'}}>No song in the playlist, let's submit some!</h5>
+              <img src={gif} alt="loading..." />
+            </div>)}
         </div>
       )
     }

@@ -29,7 +29,7 @@ class LobbyInput extends React.Component {
         let found = false;
         let code = this.state.value;
         
-        const response = await fetch('http://localhost:7001/api/lobbies'
+        const response = await fetch('https://wedj-backend.herokuapp.com/lobbies'
         )
             .then(response => 
                 response.json()
