@@ -1,10 +1,13 @@
 import React from 'react';
 import '../App.css';
+import '../style/page.css'
 import SongManage from "../components/SongManage";
 import SearchBar from "../components/SearchBar";
 import VideoList from "../components/VideoList";
 import YouTube from 'react-youtube';
 import searchYoutube from 'youtube-api-v3-search';
+import gif from '../img/dogtyping.gif'
+import Footer from '../components/Footer';
 
 const KEY = 'AIzaSyD3HRQUlqpsjJdJoWRLhMyMx3Luw_Ho7Lo';
 
@@ -26,7 +29,7 @@ export default class AdminPage extends React.Component{
 
         let roomid = this.props.match.params.id
 
-        const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`
+        const response = await fetch(`https://wedj-backend.herokuapp.com/songs/queue/${roomid}`
             ).then(response => 
                 response.json()
             )
@@ -59,7 +62,7 @@ export default class AdminPage extends React.Component{
             //document.addEventListener('touchstart', handler, {passive: true});
 
             const refresh = setInterval( async() =>{
-                const response = await fetch(`http://localhost:7001/api/songs/queue/${roomid}`)
+                const response = await fetch(`https://wedj-backend.herokuapp.com/songs/queue/${roomid}`)
                 .then(res =>
                     res.json())
                     .then(data => {
@@ -78,13 +81,9 @@ export default class AdminPage extends React.Component{
                             this.setState({
                                 newsongList: data
                             })
-
-                            //console.log(this.state.newsongList)
                     }
-
                     });
-            }, 5000)
-        
+            }, 1000)
     }
 
     searchHandler = async ( keyword ) => {
@@ -109,7 +108,7 @@ export default class AdminPage extends React.Component{
             let title = video.snippet.title
             let lobbyid  = this.state.lobbyid
 
-            await fetch('http://localhost:7001/api/songs/add', {
+            await fetch('https://wedj-backend.herokuapp.com/songs/add', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -135,7 +134,7 @@ export default class AdminPage extends React.Component{
     }
 
     deleteHandler = async(code,name) =>{
-        const res = await fetch("http://localhost:7001/api/songs/delete", {
+        const res = await fetch("https://wedj-backend.herokuapp.com/songs/delete", {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -149,32 +148,7 @@ export default class AdminPage extends React.Component{
 
     _onEnd = (playingId) =>{
 
-        /*
-        let list = []
-
-        const response = await fetch("http://localhost:7001/api/songs"
-            ).then(response => 
-                response.json()
-            )
-            .then(data => {
-                list = data;
-            });
-
-        list.sort((a, b) => (a.id > b.id) ? 1 : -1)
-        //remove song from queue then
-        for( let i = 0; i < list.length; i++ ){
-            if( list[i].song_code === playingId ){
-                list.splice( i, 1 )
-            }
-        }*/
         let list = this.state.newsongList;
-
-        /*for( let i = 0; i < list.length; i++ ){
-            if( list[i].song_code === playingId ){
-                list.splice( i, 1 )
-                this.deleteHandler(list[i].song_code, list[i].name)
-            }
-        }*/
 
         if( list.length != 0 ){
             
@@ -194,10 +168,11 @@ export default class AdminPage extends React.Component{
                 hasVideo: false
             })
         }
-    
     }
 
     render(){
+
+        document.body.style.backgroundColor = "#fefbd8";
 
         const opts = {
             height: '390',
@@ -211,15 +186,17 @@ export default class AdminPage extends React.Component{
             <div>
                 <div>
                     <div className="text-center">
-                        <h2>Welcome to Your Party</h2>
+                        <h1 className='page-header'>Welcome to Your Party</h1>
                         <h4>Your Party Code is: {this.state.lobbyid}</h4>
                     </div>
                     
-                    <div className="text-center">
+                    <div className="text-center searchbar">
                         <SearchBar submitBack={this.searchHandler} />
                     </div>
                         <div className="text-center">
-                            {!this.state.hasVideo && (<div>No Current Playing</div>)}
+                            {!this.state.hasVideo && 
+                                (<div><h5 style={{paddingTop: '5px', paddingBottom: '5px'}}>No current playing, let's submit some!</h5>
+                                    <img src={gif} alt="loading..." /></div>)}
                             {this.state.hasVideo && (
                             <div className="player-section">
                             <div>
@@ -230,7 +207,7 @@ export default class AdminPage extends React.Component{
                                     onEnd={()=>this._onEnd(this.state.PlayingId)}
                                 />
                             </div>
-                            <p>Playing</p>
+                            <p>Now Playing: {this.state.songList[0].name}</p>
                             </div>)}
                         </div>
                         <div>
@@ -246,9 +223,9 @@ export default class AdminPage extends React.Component{
                     )}
                 </div>
                     <h2 className="text-center">Manage Your Party</h2>
-                    <br/>
                     {this.state.lobbyid && <SongManage songList={this.state.newsongList} lobbyid={this.state.lobbyid}/> }
                 </div>
+                <Footer />
             </div>
         )
     }

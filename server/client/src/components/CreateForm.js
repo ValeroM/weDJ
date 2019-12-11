@@ -27,7 +27,7 @@ class CreateForm extends React.Component {
         
         const name = this.state.value;
 
-        const res = await fetch('http://localhost:7001/api/lobbies', {
+        const res = await fetch('https://wedj-backend.herokuapp.com/lobbies', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
