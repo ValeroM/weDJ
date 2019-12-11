@@ -64,7 +64,7 @@ class songList1 extends React.Component {
                 //console.log(this.state.nowplaying)
                 }
             });
-    }, 5000)
+    }, 1000)
       
     }
   
@@ -96,7 +96,7 @@ class songList1 extends React.Component {
   
       for( let i = 0; i < newlist.length; i ++ ){
         if( newlist[i].song_code === code ){
-          newlist[i].rate = newlist[i].rate + 1;
+          newlist[i].rate = newlist[i].rate - 1;
   
         }
       }
