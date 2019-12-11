@@ -85,10 +85,11 @@ Open up a new terminal and do the following steps:
 | endpoint                              | description                                |
 | ------------------------------------- | ------------------------------------------ |
 | `[GET] /api/songs`                    | get songs in table songs                   |
-| `[GET] /api/songs/queue`              | get all the songs in a queue from a specific lobby  |
+| `[GET] /api/songs/queue/:lobbycode`   | get all the songs in a queue from a specific lobby  |
 | `[POST] /api/songs`                   | store a new song in table songs            |
 | `[POST] /api/songs/add`                | add a song to the queue from a specific lobby  | 
-| `[DELETE] /api/songs/delete`                | delete a song from queue table for a specific lobby  |  
+| `[DELETE] /api/songs/delete`                | delete a song from queue table for a specific lobby  | 
+| `[PUT] api/songs/rate/:lobbycode/:songcode/:rate`  | update the rate of a song in a specific lobby |  
 
 ## Lobbies
 
@@ -129,15 +130,11 @@ Returns a json array with objects, where each object is a song in songs table:
 ]  
 ```
 
-#### `[GET] /api/songs/queue`  
+#### `[GET] /api/songs/queue/:lobbycode`  
 
-Expects in the request body the lobby code:  
+Expects in the request parameter the lobby code:  
 
-```json
-{
- "lobby_code": "some lobby code"
-}  
-```
+`/api/songs/queue/LobbyCodeHere`
 
 Returns a json of array of objects, where each object is a song from the queue for that specific lobby:  
 
@@ -220,6 +217,16 @@ or
 ```json 
 0 
 ```  
+
+#### `[PUT] /api/songs/rate/:lobbycode/:songcode/:rate`  
+
+Expects in the request parameter the lobby code, song code and 1 or -1 for the rate:  
+
+`/api/songs/rate/LobbyCodeHere/songCodeHere/1`  
+or  
+`/api/songs/rate/LobbyCodeHere/songCodeHere/-1` 
+
+Returns OK if update was succesfull, else it returns a bad request.  
 
 #### `[GET] /api/lobbies`  
 
