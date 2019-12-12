@@ -97,7 +97,7 @@ Open up a new terminal and do the following steps:
 | ------------------------------------- | ------------------------------------------ |
 | `[GET] /api/lobbies`                  | get all lobbies store in lobby table       |
 | `[POST] /api/lobbies`                 | create a new lobby                         |  
-| `[DELETE] /api/lobbies/delete`        | delete songs in queue from the specified lobby and then the lobby |  
+| `[DELETE] /api/lobbies/delete`        | delete songs in queue from the specified lobby and then deletes the lobby |  
 
 # API Details  
 
