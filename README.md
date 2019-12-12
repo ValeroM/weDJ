@@ -97,6 +97,7 @@ Open up a new terminal and do the following steps:
 | ------------------------------------- | ------------------------------------------ |
 | `[GET] /api/lobbies`                  | get all lobbies store in lobby table       |
 | `[POST] /api/lobbies`                 | create a new lobby                         |  
+| `[DELETE] /api/lobbies/delete`        | delete songs in queue from the specified lobby and then the lobby |  
 
 # API Details  
 
@@ -278,4 +279,23 @@ Returns a json object with the lobby code created for the lobby
   "updatedAt": "2019-11-24T21:02:01.948Z",
   "createdAt": "2019-11-24T21:02:01.948Z"
 }
+```  
+
+#### `[DELETE] /api/lobbies/delete`  
+
+Expects in the request body:  
+
+```json 
+{
+ "lobby_code": "some lobby code"
+}  
+```  
+Returns a json number, where 1 means sucessfull and 0 means unsuccessfull:  
+
+```json
+1
 ```
+or 
+```json 
+0 
+```  
