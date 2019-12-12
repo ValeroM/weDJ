@@ -7,6 +7,7 @@ const setup = () => {
 
   router.get("/", controller.lobbieslist);
   router.post("/", controller.addNewLobby);
+  router.delete("/delete", controller.deleteLobby);
 
   return router;
 };
