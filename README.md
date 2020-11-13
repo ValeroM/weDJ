@@ -16,60 +16,58 @@ This is weDJ. We are a web application that allows people to have a dynamic, sha
 
 To set our app locally, here are the steps:
 
-Open up the terminal and run these commands in this order
+1. Open Terminal and run the following commands in order
 
-First, install brew services if you don't already have it installed:
+    1A. Install `brew services`, if you don't already have it installed:
 
-`brew tap homebrew/services`
+        `brew tap homebrew/services`
 
-Next, you can start, stop, or restart the postgres server with the following commands:
+2. You can start, stop, or restart the postgres server with the following commands:
 
-For starting it up:
+    2A. To start: `brew services start postgresql`
 
-`brew services start postgresql`
+    2B. To stop: `brew services stop postgresql`
 
-For stopping the server:
-
-`brew services stop postgresql`
-
-To restart the server run:
-
-`brew services restart postgresql`
+    2C. To restart: `brew services restart postgresql`
+        
+    Advice:
+    
+        If these commands are difficult to remember, feel free to add aliases in your `.bashrc file`. This file is usually located in your home directory.
 
 ##### Create a user for the database
 
-`$ createuser -P -s -e musician_user`
+1. Enter: `$ createuser -P -s -e musician_user`
 
-> This command creates a new postgres user called `musician_user` with super privileges and prompts for a password. **Use password: "musician_pass"**.
+    > This command creates a new postgres user called `musician_user` with super privileges and prompts for a password. **Use password: "musician_pass"**.
 
 ##### Create the database
 
-`$ createdb -h localhost -U musician_user weDJ_development`
+1. Enter: `$ createdb -h localhost -U musician_user weDJ_development`
 
-> This command creates a database named `weDJ_development` that is owned by `musician_user` and can only be accessed via `localhost`
+    > This command creates a database named `weDJ_development` that is owned by `musician_user` and can only be accessed via `localhost`
 
-Open up a new terminal and do the following steps:
+2. In Terminal, download the repository:
 
-`git clone https://github.com/ValeroM/weDJ.git`
+    `git clone https://github.com/ValeroM/weDJ.git`
+    
+3. Navigate to the 'client' directory inside the repository and install its dependencies
 
-`cd weDJ/server/client`
+    `cd weDJ/server/client`
 
-`npm install`
+    `npm install`
 
-> This command makes sure the _client_ is ready to go
+4. Return to 'server' directory and install its dependencies
 
-`cd ..`
+    `cd ..`
 
-> Back out to server
+    `npm install`
 
-`npm install`
+5. Start weDJ's server locally on your machine.
 
-> This command makes sure the _server_ is ready to go
+    `npm run dev` 
 
-`npm run dev`
-
-> This command will start both, the frontend the and backend _locally_ at localhost http://localhost:3000 and http://localhost:7001/api respectivetly.  
-
+    > This command will start both, the frontend the and backend _locally_ at localhost http://localhost:3000 and http://localhost:7001/api respectivetly.  
+    
 # Backend
 
 # API Overview
@@ -84,26 +82,26 @@ Open up a new terminal and do the following steps:
 
 | endpoint                              | description                                |
 | ------------------------------------- | ------------------------------------------ |
-| `[GET] /api/songs`                    | get songs in table songs                   |
-| `[GET] /api/songs/queue/:lobbycode`   | get all the songs in a queue from a specific lobby  |
-| `[POST] /api/songs`                   | store a new song in table songs            |
-| `[POST] /api/songs/add`                | add a song to the queue from a specific lobby  | 
-| `[DELETE] /api/songs/delete`                | delete a song from queue table for a specific lobby  | 
-| `[PUT] api/songs/rate/:lobbycode/:songcode/:rate`  | update the rate of a song in a specific lobby |  
+| `[GET] /api/songs`                    | Get songs in table "songs"                   |
+| `[GET] /api/songs/queue/:lobbycode`   | Get all the songs in a queue from a specific lobby  |
+| `[POST] /api/songs`                   | Store a new song in table "songs"            |
+| `[POST] /api/songs/add`                | Add a song to the queue from a specific lobby  | 
+| `[DELETE] /api/songs/delete`                | Delete a song from queue table for a specific lobby  | 
+| `[PUT] api/songs/rate/:lobbycode/:songcode/:rate`  | Update the rate of a song in a specific lobby |  
 
 ## Lobbies
 
 | endpoint                              | description                                |
 | ------------------------------------- | ------------------------------------------ |
-| `[GET] /api/lobbies`                  | get all lobbies store in lobby table       |
-| `[POST] /api/lobbies`                 | create a new lobby                         |  
-| `[DELETE] /api/lobbies/delete`        | delete songs in queue from the specified lobby and then deletes the lobby |  
+| `[GET] /api/lobbies`                  | Get all lobbies store in lobby table       |
+| `[POST] /api/lobbies`                 | Create a new lobby                         |  
+| `[DELETE] /api/lobbies/delete`        | Delete songs in queue from the specified lobby and then deletes the lobby |  
 
 # API Details  
 
 #### `[GET] /api/songs`  
 
-Returns a json array with objects, where each object is a song in songs table:  
+Returns a json array with objects, where each object is a song in "songs" table:  
 
 ```json
 [
@@ -209,7 +207,7 @@ Expects in the request body:
 }
 ```  
 
-Returns a json number, where 1 means sucessfull and 0 means unsuccessfull:  
+Returns a json number, where 1 means sucessful and 0 means unsuccessful:  
 
 ```json
 1
@@ -231,7 +229,7 @@ Returns OK if update was succesfull, else it returns a bad request.
 
 #### `[GET] /api/lobbies`  
 
-Returns a json array with objects, where each object is a lobby in lobbies table:  
+Returns a json array with objects, where each object is a lobby in "lobbies" table:  
 
 ```json
 [
@@ -290,7 +288,7 @@ Expects in the request body:
  "lobby_code": "some lobby code"
 }  
 ```  
-Returns a json number, where 1 means sucessfull and 0 means unsuccessfull:  
+Returns a json number, where 1 means sucessful and 0 means unsuccessful:  
 
 ```json
 1
