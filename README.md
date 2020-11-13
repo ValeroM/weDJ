@@ -1,6 +1,12 @@
 # weDJ
 
-This is weDJ. We are a web application that allows people to have a dynamic, shared playlist.  
+weDJ is a free web application dedicated to providing music control to users. 
+
+When you're hosting a party, you want to play some awesome tunes that your guests can agree on. Instead of asking each guest one-by-one for their song request, why not have a web application do the tallying for you? Well, that's exactly what weDJ does.
+
+weDJ accepts music requests from everyone connected to your virtual lobby. A song can be recommended and be voted "thumbs up" or "thumbs down" by everyone. If guests like a particular song, then they can click on the "thumbs up" button to have it move up in the queue. Or, click on "thumbs down" to move the song at a lower position. The song with the highest "thumbs up" votes gets to be played next.
+
+By having weDJ as your co-host, your guests will have an amazing time at your party while listening to their favorite tunes. Download it and rock on!
 
 # Table of Contents
 - [Setup Guide](#setup-guide)
